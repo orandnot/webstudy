@@ -1,0 +1,257 @@
+求男女比例
+//1班学生
+var students1 =[
+	{
+		name: '小明',
+		gender: 1
+	},{
+		name: '小张',
+		gender: 1
+	},{
+		name: '小李',
+		gender: 0
+	}
+	//...
+];
+//2班学生
+var students2 =[
+	{
+		name: '张明',
+		gender: 0
+	},{
+		name: '李红',
+		gender: 1
+	},{
+		name: '王二',
+		gender: 1
+	}
+	//...
+];
+//...
+
+//求1班的男女比例
+var	maleCount1 = 0,
+	femaleCount1 = 0,
+	length1 = students1.length,
+	student1,
+	ratiol;
+//遍历1班的学生
+for (var i = 0; i < length1; i++) {
+	student1 = students1[i];
+	if (student1.gender ===1) {
+		//如果是男生，男生数量加1
+		maleCount1++;
+	}else{
+		//否则女生数量加1
+		femaleCount1++;
+	}
+}
+ratiol = maleCount1 / femaleCount1;
+
+二班的也是一样的，但是如果有十几个班级的，这样写就不合适了，因此需要引入函数
+如
+//获取班级男女比例
+function ratio(students){
+	var	maleCount = 0,
+		femaleCount = 0,
+		length = students.length,
+		student,
+		ratiol;
+	for (var i = 0; i < length; i++) {
+		student1 = students[i];
+		if (student.gender ===1) {
+			maleCount1++;
+		}else{
+			femaleCount++;
+		}
+	}
+	ratiol = maleCount / femaleCount;
+	return ratio;
+}
+
+var ratio1 = ratio(students1);
+var ratio2 = ratio(students2);
+var ratio3 = ratio(students3);
+//...
+
+函数语法
+function add(number0, number1) {
+	var sum = number0 + number1;
+	return sum;
+}
+var x = add(2, 3);
+
+function 函数名([形参列表]){
+	执行代码
+}
+形参列表中的参数以逗号隔开
+
+函数名([实参列表])
+实参列表中的参数以逗号隔开,也是实际传入的参数
+
+函数声明
+function add(number0, number1) {
+	var sum = number0 + number1;
+	return sum;
+}
+
+函数表达式
+var add = function(number0, number1) {
+	var sum = number0 + number1;
+	return sum;
+}
+var x = add(4, 6); //10
+将匿名函数赋值给一个变量
+
+函数调用：实参列表赋值给形参列表
+var add = function(number0, number1) {
+	var sum = number0 + number1;
+	return sum;
+}
+var x = add(2, 3); //5,x的结果就是被调用函数返回的值
+
+函数参数
+实参数量少于形参，返回值为undefined
+var add = function(number0, number1) {
+	var sum = number0 + number1;
+	return sum;
+}
+var x = add(2); //undefined
+
+
+实参的数量多于形参数量
+var add = function(number0, number1) {
+	var sum = number0 + number1;
+	return sum;
+}
+var x = add(2, 3, 4); //
+调用函数时，有个隐藏的变量arguments
+0: 2
+1: 3
+2: 4
+length: 3
+
+add(2, 3); //5
+add(2, 3, 4); //9
+add(2, 3, 4, 5); //14
+函数如下
+function add() {
+	var length = arguments.length,
+	sum = 0,
+	parameter;
+	for(var i = 0; i < length; i++) {
+		parameter = arguments[i];
+		sum = sum + parameter;
+	}
+	return sum;
+}
+alert(add(2, 3)); //5
+alert(add(2, 3, 4));//9
+alert(add(2, 3, 4, 5));//14
+
+
+参数为原始类型:值传递
+function increment(number) {
+	number = number + 1;
+	return number;
+}
+var a = 1;
+var x = increment(a); //2
+a; //1
+
+参数为对象类型：引用传递
+function increment(person) {
+	person.age = person.age + 1;
+	return person;
+}
+var jerry = {name: 'jerry', age: 1};
+var x = increment(jerry); //{name: 'jerry', age: 2}
+jerry;//{name: 'jerry', age: 2}
+
+=========================================================
+作用域：变量起作用的范围
+var zhoujielun = {
+	name: "周杰伦",
+	gender: 1
+};
+function class1() {
+	var zhoujielun = {
+		name: "周杰伦",
+		gender: 0
+	};
+	zhoujielun.name = "周杰";
+	zhoujielun.gender = 1;
+}
+class1();
+console.log(zhoujielun);	//{name: "周杰伦", gender: 1}
+小的作用域中没有变量，则向外边找变量
+
+var zhoujielun = {
+	name: "周杰伦",
+	gender: 1
+};
+function class1() {
+	zhoujielun.name = "周杰";
+	zhoujielun.gender = 1;
+}
+class1();
+console.log(zhoujielun);	//{name: "周杰", gender: 1}
+
+作为对象属性
+如
+移动点的位置
+var point = {
+	x: 1,
+	y: 1,
+	move: function(stepX, stepY) {
+		point.x += stepX;
+		point.y += stepY;
+	}
+};
+point.move(2, 1);  //(3,2)
+相当于
+var point = {
+	x: 1,
+	y: 1,
+	move: function(stepX, stepY) {
+		this.x += stepX;
+		this.y += stepY;
+	}
+};
+point.move(2, 1);  //(3,2)
+this表示指向调用对象
+
+构造函数
+function Point(x, y) {
+	this.x = x;
+	this.y = y;
+	this.move = function(stepX, stepY) {
+		this.x += stepX;
+		this.y += stepY;
+	} 
+}
+var point = new Point(1, 1);
+var point = new Point(2, 2);
+var point = new Point(3, 3);
+//...
+通过new Point()来构造函数
+进入函数时，this是一个空对象{}
+{x:1, y:1}
+{x:1, y:1, move:function(stepX, stepY){}}
+this作为最终的返回值
+{x:1, y:1, move:function(stepX, stepY){}}
+{x:2, y:2, move:function(stepX, stepY){}}
+{x:3, y:3, move:function(stepX, stepY){}}
+
+原型
+function Point(x, y){
+	this.x = x;
+	this.y = y;
+
+}
+Point.prototype.move = function(stepX, stepY) {
+	this.x += stepX;
+	this.y += stepY;
+};
+var point = new Point(1, 1); //{x:1,y:1}
+point.move(2, 1); //{x:3,y:2},ponit有隐藏的属性，找到公用的方法

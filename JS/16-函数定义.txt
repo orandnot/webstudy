@@ -1,0 +1,101 @@
+函数定义
+函数声明
+function add(i, j) {
+	return i+j;
+}
+
+函数表达式
+var add = function(i, j) {
+	return i+j;
+};
+
+函数实例化
+var add = new Function("i", "j", "return (i+j)");
+
+区别
+函数声明定义函数的特点
+	函数定义会被前置
+	重复定义函数时，最后一次定义有效
+下边都是解释
+
+JS是一种脚本语言，不需要被编译成目标语言
+
+JS执行前，需要进行预解析（会将变量，变量定义，函数声明提前处理掉）
+之后才会单步执行JS代码
+函数声明时，做多次声明时，结果都是最后一次声明的结果
+函数表达式有多个，每一次的结果都是不一样的
+
+如
+add1(1);
+function add1(i){
+  console.log("函数声明："+(i+1));
+ }
+
+var add2 = function(i){
+console.log("函数表达式："+(i+2));
+}
+add2(1);
+
+var add3 = new Function("i","console.log('函数实例化：'+(i+3));");
+add3(1);
+
+预解析后
+var add2;
+var add3;
+function add1(i){
+  console.log("函数声明："+(i+1));
+ }
+
+add1(1);
+
+add2 = function(i){
+console.log("函数表达式："+(i+2));
+}
+add2(1);
+
+var add3 = new Function("i","console.log('函数实例化：'+(i+3));");
+add3(1);
+
+
+思考：
+同时采用两种方式，会有什么结果，为什么这样
+
+
+
+函数实例化的特点
+定义的函数只能访问本地作用域和全局作用域
+
+变量作用域回顾
+
+var person = {name:"刘德华", age:50};
+(function(){
+   var person = {name:"刘德华", age:30};
+ (function() {
+	 var person = {name:"刘德华", age:10};
+ 	console.log(person.name+person.age+"岁");
+   })()
+})();//刘德华10岁
+
+var person = {name:"刘德华", age:50};
+(function(){
+	var person = {name:"刘德华", age:30};
+	var func = new Function("console.log(person.name+person.age+'岁');");
+	func();
+ })();//刘德华50岁
+
+
+函数调用
+函数调用模式 add(1);
+方法调用模式 
+	 var myNumber = {
+	   value: 1,
+	   add: function(i){
+		console.log(this);
+		this.value += i;
+	   }
+	 }
+	 myNumber.add(1);
+构造函数调用模式  new Function();
+apply(call)
+
+构造函数的首字母基本上都是大写的

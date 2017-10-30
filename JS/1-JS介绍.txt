@@ -1,0 +1,57 @@
+JS是行为
+例子
+<body>
+	<script>
+		document.write("hello, world!")
+	</script>
+</body>
+
+引入方式
+	在<script>中直接引入js代码
+	在<script src="helloWorld.js"></script>中引入js文件，文件中就是运行的JS代码
+
+document.write("hello, world!")
+->document write hello, world! 
+->文档	 写	hello, world! 
+->让文档写hello, world! 
+
+运行环境：在浏览器运行
+解释型：直接得到运行结果，不需要编译
+和html不同点，方便，快捷
+
+例子
+var number = 1;
+while (number < 10000) {
+	document.write('<p>' + number + '</p>');
+	number = number + 1;
+} 
+->
+variable number = 1
+while number < 10000
+	document write '<p>' + number +'</p>'
+	number = number +1
+->
+变量number=1
+当number<10000
+	让文档写<p>+number+</p>
+	number+1
+类比：
+字词	变量	对象	...
+短语	表达式	函数
+句子	语句	
+写文章	写程序
+ECMAScript:语法
+
+写文章		写程序
+写合同		写浏览器中的js
+合同规范	DOM(Document Object Model)操作页面文档的规范
+
+浏览器中的js需要依据以下规范
+	ECMAScript:语法
+	DOM(Document Object Model)
+
+历史
+1995(Netspace Navigator 2.0 js诞生)---1997(ECMAScript1)---1998(W3C DOM)---2000(ECMAScript3)---2005（Ajax）---2011（ECMAScript5.1）---2015（ECMAScript6）
+
+
+

@@ -1,0 +1,156 @@
+正则表达式：描述字符串规则的表达式
+-/pattern/attrs-------直接量
+-new RegExp(pattern, attrs)
+如
+/13566668888/
+/jerry/i
+一般用直接量比较多
+
+regexObj.test(str)
+测试正则表达式与制定字符串是否匹配
+如
+/1356666888/.test('13566668888'); //false
+/13566668888/.test('13566668888'); //true
+/13566668888/.test('x13566668888y'); //true,只要后边的字符串包含前面的字符串，执行结果就是true
+
+例子
+<input type="text" onblur="check(this)" onfocus="reset(this)">
+	<script>
+		function check(mobileInput){
+			var value = mobileInput.value;
+			if(!/13566668888/.test(value)){
+				mobileInput.style.borderColor = 'red';
+			}
+		}
+
+		function reset(mobileInput){
+			mobileInput.style.borderColor = '';
+		}
+	</script>
+
+锚点
+匹配一个位置
+^:起始位置	如：/^http:/
+$:结尾位置	如：/\.jpg$/
+\b:单词边界	如：/\bis\b/  不常用
+
+如
+/^13566668888$/.test('x13566668888y'); //false
+/^13566668888$/.test('13566668888'); //true
+/^13566668888$/.test('123345436'); //false
+
+通用检测手机号码
+字符类
+匹配一类字符中的一个
+[abc]:a或b或c
+[0-9]:一个数字	[^0-9]:非数字的一个字符
+[a-z]:一个字母
+. :任一字符（换行除外）
+可以用^表示不在范围内
+正则表达式最好都要写在//中
+如
+/^1[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]$/
+/^1[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]$/.test('13512345678'); //true
+
+元字符
+具有特殊意义的字符
+^ $ \b
+\d:[0-9] 0-9的数字	\D:[^\d] 非数字
+\s:空白符		\S:[^\s] 非空白符
+\w:[A-Za-z0-9] 单词字符	\W:[^\w] 非单词字符
+
+/^1\d\d\d\d\d\d\d\d\d\d$/.test('13512345678'); //true
+
+量词
+出现的次数
+{m,n}:m到n次
+* :{0,} 0到无穷次
+? :{0,1} 出现0或1次
++ :{1,} 至少出现1次
+手机号码
+/^1\d{10}$/.test('13512345678'); //true
+
+转义符
+需要匹配的字符是元字符
+/^http:\/\//
+/@163\.com$/
+\ 是转义符
+
+多选分支
+| ：或
+/thi(c|n)k/ 能匹配think或thick
+等价于
+/thi[cn]k/ 
+/\.(png|jpg|jpeg|gif)$/ 检测是否为图片文件
+/^(.+)@(163|126|188)\.com$/ 检测邮箱
+
+需求，获取
+http://blog.163.com/album?id=1#comment
+捕获
+保存匹配到的字符串，日后再用
+():捕获		如/(.+)@(163|126|188)\.com$/ 
+(?:):不捕获	如/(.+)@(?:163|126|188)\.com$/ 
+使用：
+$1,$2,...
+api参数或返回值
+
+str.match(regexp)
+获取匹配的字符串
+var url = 'http://blog.163.com/album?id=1#comment';
+var reg = /^(https?:)\/\/([^\/]+)(\/[^\?]*)?(\?[^#]*)?(#.*)?$/;		s?表示s出现1次或0次，^\是指非\用于匹配主机名
+var arr = url.match(reg);
+var protocol = arr[1];
+var host = arr[2];
+var pathname = arr[3];
+var search = arr[4];
+var hash = arr[5];
+正则表达式的写法并不是唯一的
+/^(https?:)\/\/([^\/]+)(\/[^\?]*)?(\?[^#]*)?(#.*)?$/
+等价于
+/^(https?:)\/\/([^\/]+)([^\?]*)([^#]*)(.*)$/
+
+The price of tomato is 5.
+===》
+The price of tomato is 5.00
+替换
+str.replace(regexp/substr,replacement)
+替换一个子串
+var str = 'The price of tomato is 5,the price of apple is 10.';
+str.replace(/(\d+)/g,'$1.00');
+The price of tomato is 5.00,the price of apple is 10.00.
+
+转译
+<div id="container"></div>
+	<script>
+		var container = document.getElementById('container');
+		
+		var html = '<label>网址:</label><input placeholder="以http://起始">';
+		html = html.replace(/[<>]/g, function(m0){
+			switch(m0){
+				case '<':
+					return '&lt;';
+				case '>':
+					return '&gt;';
+			}
+		});
+		console.log(html);
+		container.innerHTML = html;
+	</script>
+g表示全局
+i表示不区分大小写
+
+
+regexpObj.exec(str)
+更强大的检索
+更详尽的结果
+过程的状态：lastIndex
+如
+var reg = /(.)(\d+)/g;
+		var scores = 'Tom $88, Nicholas ￥100, jack £38.';
+		var result;
+		while(result = reg.exec(scores)){
+			console.log(result);
+			console.log(reg.lastIndex);
+			// reg.lastIndex += 10;
+		}
+基本上比较少用，match用的比较多

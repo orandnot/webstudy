@@ -1,0 +1,150 @@
+动画过渡
+transition-property-------transition的属性设置
+transition-property:none（默认值）|<single-transition-property>[','<single-transition-property>]*
+<single-transition-property>=all|<IDENT>
+如
+transition-property: none;----不过渡
+transition-property: all;----所有属性发生变化时都会有动画效果
+transition-property: left;----left属性发生变化时，有动画效果
+transition-property: left,color;
+未指定的属性，发生变化的没有过度效果
+
+transition-duration----动画执行时间
+transition-duration: <time>[,<time>]*
+transition-duration: 0s;
+transition-duration: 2s;
+transition-duration: 1s, 2s, 3s;
+
+transition-timing-function------时间函数，控制时间的加减速
+transition-timing-function:<single-transition-timing-function>[','<single-transition-timing-function>]*
+<single-transition-timing-function>=
+ease|linear|ease-in|ease-out|ease-in-out|------------------------关键字：两头慢中间快，匀速，开始慢，结束慢，两头慢（比ease的幅度大）
+cubic-bezier(<number>,<number>,<number>,<number>)|----------------时间曲线的函数，前两个点是起点，后两个点是结束点，加速
+step-star|step-end|
+steps(<integer>[,[start|end]]?)-------------------动画要进行几步，步骤（速度，起点|结束点）
+如
+transition-timing-function: ease;-----------两头慢，中间快
+transition-timing-function: cubic-bezier(0.25,0.1,0.25,1);----------两头慢，中间快
+transition-timing-function: linear;
+transition-timing-function: cubic-bezier(0,0,1,1);
+transition-timing-function: ease,linear;
+
+trastion-delay----延时
+trastion-delay:<time>[,<time>]*
+trastion-delay:0s;
+trastion-delay:2s;
+trastion-delay:3s;
+trastion-delay: 1s,2s,3s,4s;
+
+transition-----组合
+transition:<signle-transition>[','<signle-transition>]*
+<signle-transition>=
+[none|<signle-transition-property>]||
+<time>||<signle-transition-timing-function>||<time>----------第一个是执行动画时间，第二个是延时动画时间
+transition: none;没有动画
+transition: left 2s ease 1s, color 2s;
+transition: 2s;---其他都是默认，所有属性进入动画2s
+
+animation-name---------关键帧
+先到一个位置，再到一个位置
+自动载入动画
+animation-name:<single-animation-name>[,<single-animation-name>]*
+<single-animation-name>=none|<IDENT>
+如：
+animation-name: none;
+animation-name: abc;
+animation-name:abc, abcd;
+
+animation-duration-----------关键帧执行时间
+animation-duration: <time>[,<time>]*
+如：
+animation-duration: 0s;
+animation-duration: 1s;
+animation-duration:1s,2s;
+
+animation-timing-function--------定义时间函数
+animation-timing-function:<single-timing-function>[','<single-timing-function>]*
+<single-timing-function>=<single-transition-timing-function>
+animation-timing-function: ease;
+animation-timing-function: cubic-bezier(0.25,0.1,0.25,1);
+animation-timing-function: linear;
+animation-timing-function: cubic-bezier(0,0,1,1);
+animation-timing-function: ease,linear;
+
+animation-iteration-count--动画执行次数
+animation-iteration-count:<single-animation-iteration-count>[','<single-animation-iteration-count>]*
+<single-animation-iteration-count>=infinite(无限次)|<number>
+animation-iteration-count:1;--默认值是1
+animation-iteration-count:infinite;
+animation-iteration-count:1,2,infinite;
+
+animation-direction-------定义动画方向
+animation-direction:<single-animation-direction>[','<single-animation-direction>]*
+<single-animation-direction>=normal|reverse|alternate|alternate-reverse-------普通正方向，反过来，往返动画，相反的往返
+animation-direction:reverse;
+animation-direction:alternate;
+animation-direction:alternate-reverse;
+
+animation-play-state--播放状态
+animation-play-state:<single-animation-play-state>[','<single-animation-play-state>]*
+<single-animation-play-state>=running(默认)|pasused
+animation-play-state:running;---------动
+animation-play-state:pasused;---------不动：running,
+animation-play-state:running,paused;
+
+animation-delay-----播放延时
+animation-delay:<time>[,<time>]
+animation-delay:0s;
+animation-delay:1s;
+animation-delay:1s,2s;
+
+animation-fill-mode------动画开始的时候，是否保持第一帧的状态，结束的时候，是否保持最后一帧的状态
+animation-fill-mode:<single-animation-fill-mode>[','<single-animation-fill-mode>]*
+<single-animation-fill-mode>=none|backwards|forwards|both（一般设置为both）----------不做|开始保持第一帧|结束保持最后一帧|开始结束都保持
+
+animation
+animation:<single-animation>[','<single-animation>]*
+<single-animation>=
+<single-animation-name>||<time>||<single-annimation-timing-function>||------<time>开始执行时间
+<time>||<single-animation-iteration-count>||<single-animation-direction>||-----<time>延时时间
+<single-animation-fill-mode>||<single-animation-play-state>
+如
+animation：none;
+animation:abc 2s ease 0s 1normal none running;
+animation:abc 2s;
+animation:abc 1s 2s both,abc 2s;
+
+@keyframes----关键帧定义
+@keyframes abc{
+	from{opacity:1; height:100px;}
+	to{opacity:0.5; height:200px;}
+}
+1透明度到0.5透明度
+高度变高
+
+@keyframes abc{
+	0%{opacity:1; height:100px;}
+	100%{opacity:0.5; height:200px;}
+}
+
+@keyframes flash{
+	0%,50%,100%{opacity:1;}
+	25%,75%{opacity:0;}
+}
+闪动效果
+
+animation: abc 0.5s both;
+animation: flash 0.5s both;
+animation: abc 0.5s both,flash 0.5s both;
+多值的说明：
+transition和animation都支持多个值的写法，用逗号隔开，比如：
+transition:left 1s,color 2s,width 3s;表示给三个不同的属性指定了不同的过渡动画持续时间
+也可以改成下面的写法：
+transition-property:left,color,width;表示指定了三个属性来做过渡动画
+transition-duration:1s,2s,3s;这个三个过渡持续时间分别一一对应了上面的三个属性
+
+同理，animation也是一样。
+
+动画的兼容性问题说明：
+本节所讲语法和案例，均以W3规范为准，所有案例在webkit内核的高版本浏览器（如chrome）中测试通过。
+本节所讲语法和案例在低版本浏览器（如IE6、IE7、IE8等）中不支持。

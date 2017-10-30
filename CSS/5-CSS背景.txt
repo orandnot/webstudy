@@ -1,0 +1,143 @@
+背景颜色
+background-color:<color>
+如：
+background-color:#ff0000;
+background-color:rgb(255,0,0)
+background-color:rgba(255,0,0,0.5)-------0.5表示透明度
+background-color:transparent;------默认值为transparent
+
+背景图片
+background-image:<bg-image>[,<bg-image>]*------*表示可以有多个，以逗号隔开
+<bg-image>=<image>|none--------设置或不设置背景图片
+url() 
+	url("http://163.com/images/x.png");-------------引入绝对地址的方法
+	url("/images/x.png");-------------相对于根路径
+	url("../images/x.png");-----------相对于CSS文件
+	""、''或者不写引号都是可以的
+如：
+background-image: url(red.png),url(blue.png);-------------先写的图片在上一层
+background-color: green;-----------------------------------background-color始终在最底层
+
+background-repeat:<repeat-style>[,<repeat-style>]*------------------*表示可以有多个，对应的是之前设置了几个image
+<repeat-style>=repeat-x|repeat-y|[repeat|space|round|no-repeat]{1,2}
+	        x平铺     y平铺   x、y轴  有缝隙 会拉伸 不平铺
+如
+background-image:url(red.png);
+background-repeat：no-repeat repeat;---------------x轴不重复，y轴重复，相当于repeat-y
+
+background-image:url(red.png),url(blue.png);
+background-repeat：no-repeat repeat,repeat-x;----------有缺省时，则x y轴的样式是一样的
+
+背景图片滚动
+background-attachment:<attachment>[,<attachment>]*
+<attachment>=scroll|fixed|local----------------fixed很少用
+如
+background-image:url(red.png);
+background-attachment: scroll;-----------背景不动，文字动
+background-attachment: local;------------背景和文字一起动
+
+位置
+background-position:<position>[,<position>]*
+<position>=[left|center|right|top|bottom|<percentage>|<length>]|------------------------------写一个值
+[left|center|right|<percentage>|<length>][top|center|bottom|<percentage>|<length>]|------------写两个值，x y轴
+[center|[left|right][<percentage>|<length>?]]&&[center|[top|bottom][<percentage>|<length>?]]---写两个值
+如
+ackground-image:url(red.png);
+background-repeat：no-repeat;
+background-position: 0 0;
+background-position: 10px 20px;-----向x偏移10px,y偏移20px
+background-position: 20% 50%;-------相对于这张图片偏移这张图片的20%和50%,也是容器的20%和50%
+background-position: 50% 50%;-------居中
+background-position: right;---------x轴的百分百，另一个轴就是居中的
+background-position: right 10px top 20px;---------以right和top为参照物，偏移
+
+可以通过background-position来显示图片中的某一部分
+background-image: url(aprite.png);
+background-repeat: no-repeat;
+background-position:0 -100px;
+
+按钮颜色
+线性渐变
+linear-gradient()
+[[<angle>|to<side-or-corner>],]?<color-stop>[,<color-stop>]+
+<side-or-corner>=[left|right]||[top|bottom]
+<color-stop>=<color>[<percentage>|<langth>]?
+如
+background-image: linear-gradient(red,blue);------从上到下红变蓝
+background-image: linear-gradient(to bottom,red,blue);-----从上往下
+background-image: linear-gradient(to top,red,blue);-------从下往上
+background-image: linear-gradient(to right bottom,red,blue);-------左上角到右下角
+background-image: linear-gradient(0deg,red,blue);---------0deg表示0°
+background-image: linear-gradient(45deg,red,blue);-----------顺时针旋转45°
+background-image: linear-gradient(red,green,blue);-----------中间的会平分
+background-image: linear-gradient(red,green 20%,blue);
+
+
+镜像渐变
+radial-gradient()
+[[circle||<length>][at<position>]?,|
+[wllipse||<length>|<percentage>]{2}][at<position>?,]|
+{{circle|ellipse||<extent-keyword>][at<position>]?,|at<position>,
+]?<color-stop>[,<color-stop>]+
+
+<extent-keyword>=closest-side|farthest-side|closest-corner|farthest-corner-----离圆心最近的边，最远的边，最近的角，最远的角
+如
+background-image:radial-gradient(closest-side,red,blue);-------最近的边
+background-image:radial-gradient(circle,red,blue);-------------最远的距离
+background-image:radial-gradient(circle 100px,red,blue);
+background-image:radial-gradient(red,blue);---------------椭圆
+background-image:radial-gradient(100px 50px,red,blue);
+background-image:radial-gradient(100px 50px at 0 0,red,blue);---------圆心定位
+background-image:radial-gradient(red,green 20%,blue);
+
+渐变可以重复
+repeat-*-gradient
+background-image：repeating-linear-gradient(red,blue 20px,red 40px);
+background-image：repeating-radial-gradient(red,blue 20px,red 40px);
+
+例子
+background-image：url(red.png);
+background-repeat:no-repeat;
+background-position:right bottom;
+在padding-box的右下角
+用到background-origin,设置背景图片显示区域
+<box>[,<box>]*
+<box>=border-box|padding-box(默认值)|content-box
+如
+background-image：url(red.png);
+background-repeat:no-repeat;
+background-origin：content-box;
+
+裁剪
+background-clip
+<box>[,<box>]*
+<box>=border-box(默认值)|padding-box|content-box
+background-image：url(red.png);
+background-clip：content-box;
+background-origin：content-box;
+
+改变大小
+background-size
+<bg-size>[,<bg-size>]
+<bg-size>=[<length>|<percentage>|auto]{1,2}|cover|cotain
+background-image:url(red.png);
+background-repeat:no-repeat;
+background-position:50% 50%;
+background-size:auto;
+background-size:20px 20px;----------固定大小
+background-size:50% 50%;------------参照物是容器，宽度、高度为容器的50%
+background-size:cover;-------图片充满图片
+background-size:contain;-------图片以最大的形式显示在容器中
+
+属性融合
+background
+[<bg-layer>,]*<final-bg-layer>------------背景层，可有多个
+<bg-layer>=<bg-image>||<position>[/<bg-size>]?||<repeat-style>||<attachment>||<box>||<box>-------第一个box是background-origin，第二个box是background-clip
+<final-bg-layer>=<bg-layer>||<'background-color'>------------color只能设置在后边的图片
+如
+background:
+	url(red.png) 0 0/20px 20px no-repeat
+	,url(blue.png) 50% 50%/contain
+	no-repeat content-box green;
+
+部分语法和案例在低版本浏览器（如IE6、IE7、IE8等）中不支持，比如：多背景图、渐变背景、background-size、background-origin、background-clip等。

@@ -1,0 +1,125 @@
+类比：
+字词	变量	对象	...
+短语	表达式	函数
+句子	语句	
+写文章	写程序
+
+直接量
+var number = 1;-----1是直接量
+类似的还有
+1.2
+"hello,world"
+true
+false
+null
+[]
+{name:'js'}
+
+变量：相当于一个个的盒子
+12		age
+'小明'		name
+男		sex
+命名的过程就是声明变量
+可以是单个的，也可以是多个的，以逗号隔开
+
+语法：
+var 变量名;
+var age;
+var age,name,sex;
+var age = 12;
+
+标识符
+var age = 12;
+fuction add(num1,num2){
+	return num1 + num2;
+}
+var student ={
+	name:"小明"
+}
+其中age,add,name都是标识符
+标识符规范：
+命名要求：
+-以字母、下划线或者美元符号($)开头
+-由字母、下划线、美元符号($)和数字组成
+范例
+合法
+var abc;
+var _abc;
+var $abc;
+var abc1$;
+function $$abc_() {}
+不合法
+var 1abc;
+var *abc;
+var abc&;
+function #abc() {}
+
+var case = 1;
+SyntaxError:missing variable name
+关键字和保留字
+关键字和保留字不能作为标识符来使用
+区分大小写
+
+关键字
+break		do		instanceof	typeof
+case		else		new		var
+catch		finally		return		void
+continue	for		switch		while
+debugger*	function	this		with
+default		if		throw		delete
+in		try
+
+保留字
+abstract	enum		int		short
+boolean		export		interface	static
+byte		extends		long		super
+Char		final		native		synchronized
+Class		float		package		throws	
+Const		goto		private		transient
+debugger	implements	protected	valatile
+double		import		public
+
+标识符大小写敏感
+var age = 10;
+var Age = 20;
+
+document.write(age);//10
+document.write(age);//20
+
+
+var sex =1;
+
+if (sex == 1){
+	document.write('男');
+}
+else{
+	document.write('女');
+}
+...
+while(number < 10000){
+	document.write('<p>' + number + '</p>');
+	number = number + 1;
+}
+...
+可以嵌套的
+以;结束
+代码块放在{}中
+
+注释
+单行注释：以//开头
+块级注释：
+	-以/*开头，以*/结尾
+	-不可嵌套
+/**
+* 计算两个数字的和
+* @parame {Number} num1 第一个数字
+* @parame {Number} num2 第二个数字
+* @return {Number}	两个数字的和
+*/
+function sum(num1,num2){
+	return num1 + num2;//把两个数字加起来
+}
+
+注释的作用：
+解释程序、逻辑处理
+调试的时候用到注释，把不相干的代码注释掉，以便查找有问题的代码

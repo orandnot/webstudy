@@ -1,0 +1,313 @@
+语法
+<!--登录窗口-->
+<div class="m-min">
+	<form class="m-login" action="#">
+		<fieldset>
+			<legend>网易通行证登陆</legend>
+			<input type="text" value="账号">------------input标签是自闭合的
+			<input type="text" value="密码">
+			<button type="submit" class="u-btn">登录</button>
+		</fieldset>
+		
+	</form>
+</div>
+
+
+标签都是放在尖括号<>中的
+标签都是闭合的
+标签可以带一个或多个属性
+标签可以嵌套
+闭合是有顺序的
+注释里的内容用户无法看到
+
+规范
+属性名都用小写
+属性值写在双引号
+嵌套缩进，便于维护
+
+
+常用属性（全局属性）
+
+id
+<div id="nav"></div>
+元素在页面中的唯一标识
+JS和css可以通过id获取元素
+
+class
+<span class="time"></span>
+具有统一功能或样式的元素可以统一成一个class，css和js可以通过class获取这一类的元素
+class与id的不同点：同名的class在文档中可以有多个，同名的id在文档中只能有一个
+
+style
+<div style="display:none"></div>
+标签的样式，不利于维护，不推荐在style标签中设置样式
+
+title
+<a title="收藏"></a>
+有时候页面中的文字不能完全显示，这时候就需要将文字放在title属性之中，鼠标放上去时，就能显示出全部的内容
+有时图标的含义不明确，这时也可以将解释放在title标签中
+
+head标签中的内容，用户大部分是看不到的
+---------------------------------------------------------------------
+
+章节相关的标签：
+header标签
+页面头部或独立章节的头部
+
+footer标签
+页面底部或独立内容尾部
+
+nav标签
+导航
+
+aside标签
+和页面的主体内容无关
+
+article标签
+可嵌套，独立的，相邻的article之间没有联系
+
+section标签
+区域内容或一节，相邻的section标签是有联系的
+
+标题标签
+h1-h6
+重要性依次递减
+
+----------------------------------------------------------------
+文本相关的标签：
+超链接
+<a></a>
+创建指向另一个文档的链接
+创建文件内部锚点
+链接到email地址
+
+创建指向另一个文档的链接：
+跳转方式可以通过target，_self表示当前窗口显示，_blank新窗口显示，默认不写target，则是在当前页面打开
+<a href="http://tech.163.com/">科技</a>
+<a href="http://ent.163.com.movie" target="_self">电影</a>
+<a href="http://money.163.com" target="_blank">财经</a>
+target也可以是一个名称，可以在名称对应的地方打开，需要用到iframe,iframe中的name要和target中的属性值一样
+如
+<a href="./site/js.html" target="inner">js</a>
+<iframe frameborder="0" name="innner"></iframe>
+
+创建一个文档内部的锚点
+<a href="#pay">下单支付</a>
+<div id="pay">下单支付...</div>
+回到顶部
+
+链接到email地址
+<a href="mailto:126@qq.com,155@qq.com">联系我们</a>
+<a href="tel:15555555555">15555555555</a>
+
+强调
+em/strong
+语义强调/更强烈的强调
+斜体/粗体
+不想强调是，可以把内容放在span标签，可以通过class属性进行编组
+
+br换行标签
+<div>第一行<br>第二行</div>
+
+
+cite引用出处
+q一段文字，或某人说的话
+code代码标签
+
+格式化
+	b加粗
+	i斜体：技术术语
+
+--------------------------------------------------
+组合内容相关标签
+
+div
+进行分区，其他标签的容器
+
+p
+段落
+
+列表
+无序列表
+有序列表
+自定义列表
+
+无序列表
+<ul>
+<li>列表项一</li>
+<li>列表项二</li>
+<li>列表项三</li>
+</ul>
+显示效果，前面带有实心点
+
+有序列表
+<ol type="a" start="2">
+<li>排行一</li>
+<li>排行二</li>
+<li>排行三</li>
+</ol>
+默认样式前边有序号，1.2.3...
+可以在type属性中规定显示序号的方式，start属性中规定显示开始序号
+
+自定义列表
+<dl>
+<dt>作者</dt>
+<dd>Cbuck Musiciano</dd>
+<dd>Bll Kennedy</dd>
+<dt>出版年</dt>
+<dd>2007-4</dd>
+</dl>
+dt可以对应多个dd,dd对应dt有一定的缩进
+列表都可以进行嵌套
+
+pre格式化过后的内容
+blockquote大块引用,blockqoute中有个cite属性，属性值就是引用的出处
+
+------------------------------------------
+嵌入资源
+img标签---自闭合标签
+可以在src属性中填写图片出处，alt属性中显示标签的含义，网络不好的时候，显示alt中的内容，可以提高用户体验
+<img src="../cover.jpg" alt="封面">
+
+iframe
+嵌入页面
+<iframe src="http://www.163.com"></iframe>
+当前页面和嵌入页面的操作是隔离的，不相互影响，当前页面和嵌入页面中的CSS和JS并不相互影响
+
+object,embed
+嵌入外部资源
+<object type="application/x-shockwave-flash">-------插件类型
+	<param name="movie" value="http://pdfReader.swf">-----插件参数，播放器地址
+	<param name="flashvars" value="http://book.pdf">
+</object>
+
+
+<object data="http://pdfReader.swf" type="application/x-shockwave-flash">
+	<param name="flashvars" value="http://book.pdf">
+</object>
+IE8以及以下浏览器不兼容data属性,最好还是写第一种方式
+
+还可以通过embed标签嵌入外部资源，如：
+<embed type="application/x-shockwave-flash" src="http://pdfReader.swf" width="640" height="480">
+
+video标签插入视频
+<video controls="controls" poster="./res/poster.jpg">--------------controls控制条显示，poster视频封面,没有poster就会显示为视频的第一帧
+<source src="./res/movie.mp4" type="video/mp4">
+<source src="./res/movie.webm" type="video/webm">
+<source src="./res/movie.ogg" type="video/ogg">
+<track Kind="subtitles" src="./res/video.srt" label="English">----------track引入视频字幕
+您的浏览器不支持video标签。------------------只有高版本的浏览器支持video标签，提高页面友好性
+</video>
+视频默认是关闭状态的，可以增加autoplay属性，这样页面加载出来时，视频就自动播放，loop属性可以使视频循环播放
+
+audio标签（音频）和video标签类似
+<audio controls="controls">
+<source src="someaudio.wav" type="audio/wav">
+<source src="someaudio.mp3" type="audio/mp3">
+您的浏览器不支持audio标签。
+</audio>
+
+图
+canvas：基于像素，性能要求高（实时数据高，如游戏）
+svg：矢量的，高保真
+
+热点区域
+map
+area
+用法
+<img src="http://ystore.nos.netease.com/2e660a89422d7fa5.png" alt="运动" width="1090" height="995" usemap="#Map2">
+<map name="Map2">
+	<area shape="rect" coords="669,75,1075,682" href="xiupin.com/..." target="_blank">
+	...
+</map>
+usemape和map中name的值是一致的
+rect表示矩形
+coords矩形的四个点
+
+-----------------------------------------------------------------------------
+数据展示
+
+表格标签
+table
+caption表格标题
+thead表格头部
+tbody内容
+tr行
+th表头单元格
+td普通单元格
+tfoot表格尾部
+colspan跨列，如<tr><td colspan="3">运费8元，满99免运费</td></tr>
+rowspan跨行，如<tr><th rowspan="2">一区</th></tr>
+
+------------------------------------------------------------------------------
+
+表单标签
+<form action="/login" method="post">-----------------action是指提交地址，method是方式
+	<fieldset>-----------------------------------分区
+		<legend>照片选择</legend>------------分区标题
+		<label for="file">选择照片</label>
+		...
+	</fieldset>
+	<fieldset>
+		<legend>综合选择</legend>
+		<label for="file">选择照片</label>
+		...
+	</fieldset>
+</form>
+input标签有很多type属性
+如
+file文件上传
+checkbox多选框,默认选择则需要加一个checked属性，禁止操作多选框需要加disabled属性，同一类多选框name的值都是一样的
+radio单选框
+text单行文本，默认属性可不写，可以通过placeholder属性显示一些提示信息（只有在高级浏览器中支持placeholder），默认值可以写在value中，只能看不能输入可以用readonly属性,传递隐藏属性用hidden
+<input type="text" placeholder="tip" value="good" hidden>
+submit提交按钮
+reset重置
+为了更好的语义化表示，最好用button标签
+
+name属性表示数据名称，值用value属性表示
+
+下拉选择框用select标签，每一项用option标签表示
+<select id="delivery">
+	<option value="0">快递</option>
+	<option value="1">EMS</option>
+	<option value="2" selected>平邮</option>-----------selected默认选中
+</select>
+
+多行文本框用textarea表示
+<textarea name="feedback" rows="4" id="feedback"></textarea>
+
+label标签中的for里边的内容要和id里边的内容一致
+如
+<label for="delivery">配送方式：</label>
+<select id="delivery">
+	<optgroup label="group1">----------------分组
+		<option value="0">快递</option>
+		<option value="1">EMS</option>
+	</optgroup>
+	<option value="2" selected>平邮</option>
+</select>
+
+input的type类型是text时，可以通过placeholder="tip"添加提示信息，value值为默认值，readonly属性只能看不能修改，hidden属性用于隐藏数据
+placeholder只有高级浏览器可以实现
+
+html5中新增的属性
+input type
+email
+url
+number
+tel
+search
+range
+color
+date picker(date,month,week,time,datetime,datetime-local)
+
+------------------------------------------------------------
+语义化
+用正确的标签描述页面
+
+语义化的作用
+有利于SEO
+提高可访问性
+提高代码可读性
+

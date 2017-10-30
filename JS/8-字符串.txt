@@ -1,0 +1,146 @@
+字符串：用单引号或双引号括起来
+"该号码可注册"
+"166666666"
+""
+"http://www.163.com"
+'http://www.163.com'
+
+str.length
+判断字符串的长度
+如：
+"micromajor".length	//10
+
+var userName = input.value;	//获取输入框的值，"micromajor"
+if(userName.length < 6) {
+	alert("昵称要大于等于6");
+}
+
+str.charAt(index)
+字符串中不能有连接符，index是索引值
+index：0，1，2，.....9(最后一个索引值可以是"micromajor".length-1)
+如
+"micromajor".charAt(0)
+第一个字符开始，不能为-
+
+var userName = input.value;	//获取输入框的值，"-micromajor"
+if(userName.charAt(0) == "-") {
+	alert("昵称不能以“-”开头");
+}
+
+str.indexOf(searchValue[,fromIndex])---------fromIndex不常用，这里不涉及
+包括两个参数：需要找的值，从哪个索引位置开始找
+必须包含连接符
+如
+"micro-major".indexOf("-") //5
+返回索引位置
+
+"micro-major-web".indexOf("-") //5
+只返回一个
+
+"micro-major".indexOf("major") //6
+返回查找值中第一个字母所在的索引位置
+
+"micromajor".indexOf("-") //-1
+找不到某个字符，则返回-1
+如
+var userName = input.value;	//"micromajor"
+if(userName.indexOf("-") == -1) {
+	alert("昵称必须包含“-”");
+}
+
+
+str.search(regexp)
+如
+"micromajor163".search(/[0-9]/)	//10
+"micromajor163".search(/[A-Z]/)	//-1
+
+var userName = input.value;	//"micromajor163"
+if(userName.search(/[0-9]/) != -1) {
+	alert("昵称不能含有数字");
+}
+
+str.match(regexp)
+"micromajor163".match(/[0-9]/)	//["1"]
+"micromajor163".match(/[0-9]/g) //["1","6","3"]
+"micromajor163".match(/[A-Z]/) //null
+正则中的g，决定了是输出单个还是匹配出全部的
+
+
+替换字符串中的值
+str.replace(regexp|substr, newSubstr|function)
+	正则|某个字符串,想要替换成什么字符串|方法
+如
+"micromajor163".replace("163", "###") //"micromajor###"
+"micromajor163".replace(/[0-9]/, "#") //"micromajor#63"
+"micromajor163".replace(/[0-9]/g, "#") //"micromajor###"
+"micromajor163".replace(/[0-9]/, "") //"micromajor"
+
+
+str.substring(indexA[,indexB])
+从某一个索引值开始，到某个索引值结束中间的字符串
+第一个值是包含的，后边的一个值不会包含
+如
+"micromajor".substring(5,7)	//"ma"
+"micromajor".substring(5)	//"major"
+只能传正数,只写一个值得时候，就从该位置取到最后的字符
+同时，取前不取后
+
+
+str.slice(beginSlice[,endSlice])
+和str.substring(indexA[,indexB])差不多，但是可以取倒数
+如
+"micromajor".slice(5,7)		//"ma"
+"micromajor".slice(5,7)		//"major"
+"micromajor".slice(1,-1)	//"icromajo"
+"micromajor".slice(-3)		//"jor"
+只写一个值得时候，就从该位置取到最后的字符
+同时，取前不取后
+
+str.substr(start[,length])
+从某一个位置开始，取多少长度
+如
+"micromajor".substr(5,2)	//"ma"
+"micromajor".substr(5)		//"major"
+只写一个值得时候，就从位置取到最后的字符
+同时，取前不取后
+
+str.split([separator][,limit])--------limit不常用
+分隔符，得到多少
+分隔符是指以什么作为分割
+如
+"micro major".split(" ")	//["micro","major"]
+"micro major".split(" ",1)	//["micro"]
+"micro2major".split(/[0-9]/)	//["micro","major"]
+
+str.toLowerCase()
+把字符串变成全部小写
+"MicroMajor".toLowerCase()	//"micromajor"
+
+str.toUpperCase()
+把字符串全部变成大写
+如
+"MicroMajor".toUpperCase()	//"MICROMAJOR"
+
+区号-固定号码
+连接
+如
+"0571" + "-" + "88888888"	//0571-88888888
+
+var area = areaInput.value;	//"0571"
+var tel =telInput.value;	//"88888888"
+var number = area + '-' + tel;	//"0571-88888888"
+
+String()
+转字符串
+如
+String(163)	//"163"
+String(null)	//"null"
+
+"micromajor"
+在字符串中插入双引号，可以通过转义实现
+如
+"micro\"major"	//"micro"major"
+"micro\\major"	//"micro\major"
+"micro\tmajor"	//"micro	major"
+\t代表Tab
+\n代表换行

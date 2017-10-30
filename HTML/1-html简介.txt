@@ -1,0 +1,27 @@
+html：超文本标记语言
+
+结构
+文档声明
+<!DOCTYPE>
+-首行、顶格
+表示文档采用的标准，目前采用
+
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">----------------------------------------要写在head的顶部，以防乱码，定义文档的字符编码
+  <title>title</title>------------------------------------------文档标题
+  <meta name="Keywords" content="音乐...">----------------------文档基本信息，content中的内容是给搜索引擎用的
+  <meta name="Description" content="网易...">-------------------
+  <meta name="viewport" content="with=device-width">------------对移动端浏览器有用
+  <link rel="shortcut icon" href="favion.ico">------------------标签页顶部的icon，默认情况下读取根目录的icon，页面图标和整站不一样时可以采用该方法
+  <link rel="stylesheet" href="../css/style.css">----------------定义样式
+  <style>p{color:#999;}</style>
+ </head>
+ <body>
+
+  
+ </body>
+</html>
+
+ 文档的<head>中除了title和icon在页面中显示，别的都不显示

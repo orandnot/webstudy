@@ -1,0 +1,206 @@
+语句
+条件语句
+循环语句
+with语句
+异常捕获语句
+
+条件语句
+if(条件){语句1}else{语句2}
+条件成立，则执行语句1，否则执行语句2
+条件中不一定是布尔值，可能是其他的表达式，如1，0，4>3
+
+var isMale = false;
+if(isMale){
+	document.write('男');
+}
+else{
+	document.write('女');
+}
+//女
+
+有时候不需要有两个分支，true就执行，false不执行，所以可以不需要括号
+如
+var isMale = true;
+if(isMale)
+	document.write('男');
+//男
+
+没有大括号，就只能执行一句
+var isMale = true;
+if(isMale)
+	document.write('男');
+	document.write('hello');
+//男hello
+
+var isMale = true;
+if(isMale){
+	document.write('男');
+	document.write('hello');
+	}
+//男hello，只在条件成立的时候执行
+
+建议即使只有一次，也要写大括号，这样方便以后进行维护
+
+分支较多的时候可以采用else if 语句
+if(条件1){语句1}else if(条件2){语句2}else{语句3}
+var score = 65;
+if(score > 70){
+	document.write('A');
+}
+else if(score >= 60){
+	document.write('B');
+}
+else{
+	document.write('C');
+}
+//B
+当分支有很多的时候，可以有多个else if进行判断
+
+==================================================================
+switch
+switch(表达式){
+	case 值1 : 语句
+	break;
+	case 值2 : 语句
+	break;
+	default : 语句
+}
+表达式中的值和case中的条件是否匹配，匹配则输出，不匹配则输出default语句
+
+var degree = 'B';
+switch(degree){
+	case 'A':
+		document.write('优秀');
+		break；
+	case 'B';
+		document.write('良好');
+		break;
+	default:
+		document.write('不合格');
+}
+//良好
+break就是，执行后，符合条件的情况下，跳出switch语句
+一般情况下一个case对应一个break
+有时候，两个case的处理是一样的，则把break放在下边一个case语句后边
+
+==================================================================
+循环语句-while
+while(表达式){语句}
+表达式是true的时候，会执行语句
+如
+var i = 1;
+while(i<=10){
+	document.write(i);
+	i++;
+}
+//12345678910
+
+==================================================================
+循环语句-do-while
+do{语句} while(表达式)
+不管是否符合表达式中的值，都会先执行do语句，之后才会判断是否符合表达式，继续执行
+如
+var i = 11;
+do{
+	document.write(i);
+	i++;
+}
+while(i<=10)
+//11
+
+==================================================================
+循环语句-for
+for(初始化 ; 循环条件 ; 更新表达式){语句}
+如
+var i = 1;					for(var i = 1; i <= 10; i++){
+while(i<=10){						document.write(i);
+	document.write(i);			}
+	i++;			------------>>  //12345678910
+}
+//12345678910
+
+==================================================================
+break,continue
+break是指跳出循环
+continue是指跳出这一次的循环
+
+如
+for(var i = 1; i <= 10; i++){
+	if(i == 5){break;}
+	document.write(i);
+}
+//1234
+
+for(var i = 1; i <= 10; i++){
+	if(i == 5){continue;}
+	document.write(i);
+}
+//1234678910
+
+==================================================================
+循环语句-for-in
+for(属性名 in 对象){语句}
+判断属性是否在对象中，满足条件则打印结果
+
+如
+var cat = {
+	name : 'kitty',
+	age : 2,
+	mew : function(){
+		console.log('喵喵喵');
+	}
+
+}
+for(var p in cat){
+	document.write(p);
+}
+//name age mew
+p是属性名的变量
+
+==================================================================
+with
+with(表达式){语句}
+是把当前语句的作用域指向特殊的对象上
+
+如
+var kitty = {
+	age : 3,
+	friend : {
+		name : 'anoopy',
+		age : 2,
+	}
+}
+输出
+document.write(kitty.friend.name + '\'s age is' + kitty.friend.age);
+//anoopy's age is2
+
+当属性较多时，书写不变，可以通过with进行简化
+with(kitty.friend){
+	document.write(name + '\s age is' + age);
+}
+//anoopy's age is2
+上边输出语句中的作用域是指向kitty.friend中
+
+==================================================================
+异常捕获语句
+try{
+	语句
+}
+catch (exception){
+	语句
+}
+finally{
+	语句
+}
+首先执行try语句，如果出错了，执行catch语句，之后不管try语句是否有错，都会执行finally
+在写代码的时候，不确定代码是否有误的情况下，可以将代码放在try语句中执行，查看是否存在异常
+如
+try{
+	doument.write(notDefined);
+}catch(error){
+	alert(error);
+}finally{
+	alert('finally');
+}
+//ReferenceError:...
+//finally

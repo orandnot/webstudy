@@ -1,0 +1,433 @@
+布局简介
+display(水平居中、居中导航)
+position(轮播头图、固定顶栏、遮罩、三行自适应布局)
+float(两列布局)
+flex(三行两列自适应)
+
+布局：
+浏览器以正确的大小摆放在正确的位置上
+元素的拜访模式
+
+display
+设置元素的显示方式
+display:block|inline|inline-block|none
+
+块级元素
+display:block
+	默认宽度为父元素宽度
+	可设置宽高
+	换行显示
+默认display：block元素-div,p,h1-h6,ul,form...
+
+行级元素
+display:inline
+	默认宽度为内容宽度
+	不可设置宽高
+	同行显示----------可以在元素内换行
+默认display：inline元素-span,a,label,cite,em...
+
+display		默认宽度	可设置宽高	起始位置
+block		父元素宽度	是		换行
+inline		内容宽度	否		同行
+inline-block	内容宽度	是		同行
+
+inline-block
+	默认宽度为内容宽度
+	可设置宽高
+	同行显示
+	整块换行-----后续元素宽度超出边界会出现整块换行
+默认display：inline-block元素-input，textarea，select，button...
+
+display:none
+设置元素不显示
+display:none vs visibility:hidden
+隐藏后位置被占用	隐藏后位置不被占用
+
+布局-块级元素的水平居中
+<div>
+	<div class="content">content area</div>
+</div>
+.content{margin:auto;width:978px;}--------水平居中，宽度为978px
+
+布局-居中导航
+<ul>
+	<li><a href="#">推荐</a></li>
+	<li><a href="#">歌单</a></li>
+	<li><a href="#">大牌DJ</a></li>
+	<li><a href="#">歌手</a></li>
+	<li><a href="#">新碟上架</a></li>
+</ul>
+ul{
+	text-align:center;
+	height:30px;
+	line-height:30px;
+}
+li,a{
+	display:inline-block;
+	width:80px;
+	height:100%;
+}
+li{
+	margin：0 10px;
+}
+
+登录框覆盖
+目前学到的display无法实现元素叠加的效果，需要用position进行定位
+
+定位
+position-设置定位方式
+top,right,bottom,left,z-index-设置位置
+
+top/right/bottom/left
+相对于参照物的top/right/bottom/left距离，可以是正值和负值
+xy定位左上角，右下角定位的话需要加宽度和高度，不合适
+如
+<div class="sample">sample</div>
+.sample{
+	top:30px;
+	left:30px;
+}
+.sample{
+	bomttom:30px;
+	right:30px;
+}
+如果没有设置宽高，同时设置了上下左右四个属性，则元素会被拉伸
+
+z-index------z轴上叠加
+z-index:0;
+z-index:1;
+z-index:-1;
+不一定越大的元素，越在上面
+父元素的优先级大的在上层
+z-index:9
+	z-index:1;
+z-index:4;
+	z-index:100;	
+z-index:1会盖在z-index:100上
+
+若相同，则后者覆盖前者
+
+position：static(静态的)|relative(相对定位)|absolute（绝对）|fixed（固定）
+
+相对定位------------相对于绝对定位的参照物
+position:relative;
+仍在文档流中
+position:relative;
+top:10px;
+left:20px;
+参照物为元素本身
+
+绝对定位
+position: absolute;
+默认宽度为内容宽度
+脱离文档流--------后面的元素会占用它的位置
+position:absolute;
+top:0;
+left:20px;
+参照物为第一个定位祖先/根元素
+祖先上没有定位，则祖先是根元素html
+
+轮播图
+<div class="is">
+	<img src="/2014/7.b2a0.jpg">
+	<p class="title"><a href="/0687">老徐视线：北京潮女出门逛街不穿内衣</a></p>
+	<div class="controls">
+		<span></span>
+		<span class="cur"></span>
+		<span></span>
+		<span></span>
+		<span></span>
+	</div>
+</div>
+
+.is{
+	position: relative;
+	width: 480px;
+}
+.is .title{
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+}
+.is .controls{
+	position: absolute;
+	bottom: 18px;
+	right: 10px;
+}
+.is .controls span{
+	display: inline-block;
+	width: 10px;
+	height: 10px;
+}
+
+固定定位
+position: fixed;
+默认宽度为内容宽度
+脱离文档流
+参照物为窗口
+position: fixed;
+bottom: 0;
+left: 10px;
+
+布局-固定顶栏
+<div class="top">top bar</div>
+<div class="main">main content area<//div>
+
+body{padding-top: 50px;}
+.top{
+	position:fixed;
+	top: 0;
+	width: 100%;
+	height: 50px;
+}
+
+遮罩
+<div class="mask"></div>
+.mask{
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 999;------------------------要遮住整个窗口，设置的值要很大
+	width: 100%;
+	height: 100%;
+}
+
+布局-三行自适应布局
+顶栏，底部固定，内容滚动
+<div class="head">head</div>
+<div class="body">body</div>
+<div class="foot">foot</div>
+.head{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100px;
+}
+.body{
+	position: absolute;
+	top: 100px;-------------绝对定位时，四个角都有，没有设置元素宽高，元素会被拉伸，由浏览器计算宽高
+	left: 0;
+	bottom: 100px;
+	right: 0;
+}
+.foot{
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 100px;
+}
+position:fixed 在ie6及以下不支持
+
+浮动
+float
+块级元素同行显示
+在文档流中
+float: left|right|none|inherit--------------后两个不常用
+float: right;
+	默认宽度为内容宽度
+	脱离文档流------------后续元素占有它的位置
+	向指定方向一直移动
+
+float的元素在同一文档流
+float: left;float: left;float: left;
+一直移动到前一个文档流的前面
+
+float元素半脱离文档流
+float: left;
+对元素，脱离文档流；对内容，在文档流----------元素重叠，内容不重叠
+
+clear:both|left|right|none|inherit-------------后两个不常用
+应用于后续元素
+应用于块级元素
+
+使用时，增加空白元素，用的较少
+基本都是用clearfix
+
+.clearfix:after{
+	content:"."
+	display:block;
+	clear:both;
+	height:0;
+	overflow:hidden;
+	visibility:hidden;
+}
+.clearfix{
+	zoom:1;----------兼容IE低版本
+}
+如：
+<div class="parent">
+	 <div class="sample">float: left</div><div class="sample">float: left</div><div class="sample">float: left</div>
+	 <!-- <br class="cb"> -->
+</div>
+<div>
+	<div class="sb clearfix">
+		<div class="sample">float: left;</div>
+		第12届ChinaJoy动漫游戏展7月31日在上海新国际博览中心开幕，到处是站台表演的帅哥美女。
+	</div>
+	<div class="sb">
+		有些游戏商为了吸引人气，还请来了著名的演员、模特前来助阵。以下是一批漂亮的Show Girl现场照片。
+	</div>
+</div>
+
+body{width: 400px;line-height: 1.6;}
+.sample{float: left;width: 100px;line-height: 100px;text-align: center;background-color: pink;}
+.parent, .sb{padding: 5px 0;margin-bottom: 10px;outline: 1px dashed blue;}
+.sample{margin: auto 5px;}
+.sample{float: left;}
+.cb{clear: both;height: 0;overflow: hidden;visibility: hidden;}
+/*.clearfix:after{content:'.';display: block;clear: both;height: 0;overflow: hidden;visibility: hidden;}*/
+
+两列布局
+<div class="body clearfix">
+	<div class="side">side</div>
+	<div class="main">main</div>
+</div>
+.side{
+	float: right;
+	width: 200px;
+}
+.main{
+	float: left;
+	width: 500px;
+}
+.clearfix:after{
+	content: ".";
+	display: block;
+	clear: both;
+	height: 0;
+	overflow: hidden;
+	visibility: hidden;
+}
+
+布局-两列自适应布局（在页面架构中会讲）
+
+三行主席适应布局+两列布局——》两列自适应布局
+
+弹性布局
+flex
+多行自适应
+多列自适应
+间距自适应
+任意对齐
+flex container---弹性容器
+flexitem----------弹性元素
+main axis-------弹性元素排列的方向
+cross axis--------与主轴垂直的方向
+display: flex
+创建弹性容器flex container
+flex item
+在文档流中的直接子元素
+<div style="display:flex">
+	<div>block</div>
+	<div style="float: left;">float</div>
+	<span>inline</span>
+	<div style="position:absloute;"></div>
+	<div>
+		<div>grandson</div>
+	</div>
+</div>
+
+方向
+弹性
+对齐
+
+方向
+flex-direction-----排列方向
+flex-wrap-----换行
+flex-flow-----流
+order---------自定义排列,相对值，值大的排在后边
+
+flex-direction:row(默认行左右)|row-reverse(行：右左)|column(列：上下)|clomn-reverse(列：下上)
+
+flex-wrap：nowrap(默认不换行)|wrap(换行)|wrap-reverse(反方向换行，较少)
+
+flex-flow:<'flex-direction'>||<'flex-wrap'>------同时设置两个属性，建议用flex-flow
+
+order:<interger>
+initial:0(默认)
+.container{display:flex;}
+.item1{order:1;}
+.item2{order:10;}
+item3{order:-1;}
+
+flex-basis
+flex-basis: main-size（主轴）|<width>
+设置flex item的初始宽/高
+
+flex-grow----元素能分配到空余空间的比列,最重要的属性
+flex-grow:<number>
+initial: 0
+如
+flex-grow: 1; flex-grow: 2; flex-grow: 3;
+元素大小=flex-basis+(flex-grow)/sum(flex-grow)*remain(多余空间)
+
+flex-shrink-----剩余空间的负数
+flex-shrink: <number>
+initial: 1
+元素大小=flex-basis+(flex-shrink)/sum(flex-shrink)*remain
+
+flex最重要的
+flex:<'flex-grow'>||<'flex-shrink'>||<'flex-basis'>
+initial: 0 1 main-size
+
+对齐
+justify-content
+align-items
+align-self
+align-content
+
+justify-content:flex-start|flex-end|center|space-between|space-around
+主轴头部对齐，主轴尾部对齐，主轴居中对齐，平分空余空间、平分剩余空间首尾也有
+like text-align
+
+align-items:flex-start|flex-end|center|baseline|strech
+主轴头部对齐，主轴尾部对齐，主轴居中对齐，基线对齐，辅轴拉伸充满
+like vertical-align
+
+align-self
+align-self:auto(容器上的对齐方式)|flex-start|flex-end|center|baseline|strech
+设置单个flex item在cross-axis（辅轴）方向上对齐方式
+
+多行出现时有剩余空间，可以通过align-content
+align-content:flex-start|flex-end|center|space-between|space-around|strech
+辅轴头部对齐，辅轴尾部对齐，辅轴居中对齐，中间平分剩余空间，中间和两端平分剩余空间，拉伸充满剩余空间
+在cross-axis（辅轴）方向上对齐方式
+
+三行自适应+两列自适应
+<div class="head">head</div>
+<div class="body">
+	<div class="side">side</div>
+	<div class="main">main</div>
+</div>
+<div class="foot">foot</div>
+
+html, body{
+	height:100%;
+}
+body{
+	display: flex;
+	flex-flow: column;
+}
+.head, .foot{
+	height:100px;
+}
+.body{
+	flex: 1;---------伸展因子是1
+	display: flex;
+}
+.side{
+	width: 200px;
+}
+.main{
+	flex: 1;
+}
+.main{
+	margin-left: 10px;
+}
+.body{
+	width: 500px;
+	align-self: center;
+}
+flex ie9及以下不支持，目前主要用于移动web页面中

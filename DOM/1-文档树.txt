@@ -1,0 +1,89 @@
+DOM：Document Object Model（文档对象模型）
+用对象的方式来描述文档
+
+API规范
+
+DOM Core：核心结构定义
+DOM HTML:将HTML转化成对象模型
+DOM Style:将样式转换成对象模型
+DOM Event:将事件转换成对象模型（响应用户操作）
+
+DOM树
+如
+<!doctype html>
+<html>
+ <head>
+  <meta charset="UTF-8">
+  <link href="style.css">
+ </head>
+ <body>
+	<p>hello,<span>mooc</span><img src="user.jpg"></p>
+	<div>微专业</div>
+ </body>
+</html>
+
+对应的DOM结构
+html
+	head
+		meta
+		link
+	body
+		p
+			hello,
+			span
+				mooc
+			img
+		div
+			微专业
+
+节点遍历
+node.parentNode
+    .firstChild
+    .lastChild
+    .previousSibling
+    .nextSibling
+
+节点类型
+ELEMENT_NODE--------最重要
+TEXT_NODE
+COMMENT_NODE--------不常用
+DOCUMENT_TYPE_NODE---------不常用
+
+元素遍历
+如
+<p>
+	hello,<em>jerry!</em>
+	欢迎来<a href="#">网易云课堂</a>。
+</p>
+
+p
+	hello,
+	em
+		jerry!
+	欢迎来
+	a
+		网易云课堂
+	。
+p.firstElementChild:em
+ .lastElemnetChild:a
+
+em.nextElementSibling:a
+ .previousElementSibling:null
+
+ 低版本ie不支持元素遍历，只需要用节点遍历和节点类型判断就可以做到兼容
+ 如
+ function getElementChild(element){
+        if(element.children){
+            return element.children;
+        }
+        else{                   
+            var Arr = [];//声明一个数组用以存放之后获取的子节点
+            var list = element.childNodes;
+            for(var i=0;i<list.length;i++){
+            if(list[i].nodeType == 1){//若节点的元素类型属于1，即元素节点,存入数组
+                    Arr.push(list[i]);
+                }
+            }
+            return Arr;//返回存放子元素的数组
+        }
+}

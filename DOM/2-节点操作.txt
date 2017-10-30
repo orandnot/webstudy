@@ -1,0 +1,377 @@
+节点操作包括
+	获取节点
+	创建节点
+	修改节点
+	插入节点
+	删除节点
+	innerHTML
+
+获取节点
+	父子关系
+	兄弟关系
+
+父子关系：
+	parentNode
+	firstChild/lastChild/childNodes
+	childNodes/children
+兄弟关系
+	previousSibling/nextSibling
+	previousElementSibling/nextElementSibling
+通过节点关系获取到的节点：可维护性差
+
+可以通过接口获取节点
+如
+getElementById
+getElementsByTagName
+getElementsByClassName
+querySelector/All
+
+getElementById
+element = document.getElementById(id)
+获取唯一节点
+如
+<body>
+<p id="hello" class="mooc" >
+	helo,<span>mooc</span>
+	<img src="user.jpg">
+</p>
+</body>
+
+document.getElementById("hello");
+获取到包含了很多属性的p对象
+id在整个文档中是唯一的
+表示节点对象时，用p#hello.mooc来表示节点
+
+<div id="users">
+	<h2>8882人在学习该课程:</h2>
+	<ul>
+		<li class="user">Satoshi</li>
+		<li class="user">春来草青</li>
+		<li class="user last">Kash</li>
+	</ul>
+</div>
+
+getElementsByTagName--------获取元素通过标签的名称
+collection = element.getElementsByTagName(tagName);
+users.getElementByTagName("li");
+获取结果
+[
+	li.user
+	li.user
+	li.user.last
+]
+users.getElementByTagName("li")[2];----------2是下标，获取的是第三个元素
+
+<div id="users">
+	<h2>8882人在学习该课程:</h2>
+	<ul>
+		<li class="user">Satoshi</li>
+		<li class="user last">Kash</li>
+	</ul>
+</div>
+var a = users.getElementByTagName("li");
+a;
+[
+	li.user
+	li.user.last
+]
+collection is live-----返回值是动态的
+
+例子
+<body>
+    <div id="users">
+        <h2>8882人在学习该课程:</h2>
+        <ul>
+            <li class="user">
+                <a href="/user/1">Satoshi</a>
+            </li>
+            <li class="user">
+                <a href="/user/2">春来草青</a>
+            </li>
+            <li id="lastUser" class="user last">
+                <a href="/user/3">Kash</a>
+            </li>
+        </ul>
+    </div>
+    <script>
+    	var users = document.getElementById('users');
+    	var a = users.getElementsByTagName('li');
+
+    	alert('一共有' + a.length + '个用户!');
+
+        // var lastUser = document.getElementById('lastUser');
+        // lastUser.parentNode.removeChild(lastUser);
+        // alert('一共有' + a.length + '个用户!');
+    </script>
+</body>
+
+
+<div id="users">
+	<h2>8882人在学习该课程:</h2>
+	<ul>
+		<li class="user">Satoshi</li>
+		<li class="user">春来草青</li>
+		<li class="user last">Kash</li>
+	</ul>
+</div>
+users.getElementByTagName("*");----获取所有后代元素
+
+
+getElementsByClassName
+collection = element.getElementsByName(className)
+<div id="users">
+	<h2>8882人在学习该课程:</h2>
+	<ul>
+		<li class="user">Satoshi</li>
+		<li class="user">春来草青</li>
+		<li class="user last">Kash</li>
+	</ul>
+</div>
+users.getElementsByName("user")
+[
+	li.user
+	li.user
+	li.user.last
+]
+也可以指定下标
+users.getElementsByName("user")[2]
+-li.user.last
+
+users.getElementsByName("user last")-----通过空格分割指定多个类名，这样就能获取到同时具有这多个类名的元素
+-li.user.last
+
+users.getElementsByName("last user")------类名的顺序对结果没有影响
+-li.user.last
+
+低版本的浏览器不兼容，可以采用下面的做法
+function getElementsByClassName(root,className) {
+	if(root.getElementsByClassName){				//特性侦测
+		return root.getElementsByClassName(className);		//优先使用W3C规范 
+	}else{
+		var elements = root.getElementsByClassName('*');	//获取所有后代元素
+		var result = [];
+		for(var i = 0,element;element = elements[i];i++){
+			if(hasClassName(element, className)){		//选择包含类名的元素
+					result.push(element);
+				}
+			}
+			return result;
+		}
+}
+
+
+querySelector/All----------------------通过获取CSS选择器的方式获取元素
+list = element.querySelector/All(selector)
+<div id="users">
+	<h2>8882人在学习该课程:</h2>
+	<ul>
+		<li class="user">Satoshi</li>
+		<li class="user">春来草青</li>
+		<li class="user last">Kash</li>
+	</ul>
+</div>
+var users = document.querySelector("#users");
+-div#id
+
+user.querySelectorAll(".user");
+[
+	li.user
+	li.user
+	li.user.last
+]
+
+document.querySelectorAll("#users .user");
+[
+	li.user
+	li.user
+	li.user.last
+]
+
+list不是动态的
+querySelectorAll获取的值是静态的
+
+怎么实现querySelectorAll在低版本下兼容
+
+总结
+------------------------------------------------------------------------
+name				only document		sole(唯一)		live
+getElementById			Y			Y
+getElementsByTagName							Y
+getElementsByClassName							Y
+querySelectorAll			
+querySelector						Y
+------------------------------------------------------------------------
+
+
+在原有的基础上增加节点
+<div id="users">
+	<h2>8882人在学习该课程:</h2>
+	<ul>
+		<li class="user">Satoshi</li>
+		<li class="user">春来草青</li>
+		<li class="user last">Kash</li>
+		<li class="user">lifeng</li>
+	</ul>
+</div>
+步骤
+创建li节点
+设置li节点的class属性
+插入li节点
+创建img节点
+设置img节点的src属性
+插入img节点
+创建a节点
+设置a节点的href属性
+设置a节点的内容
+插入a节点
+
+创建、插入、修改
+
+创建节点
+element = ddocument.createElement(tagName)
+如
+document.createElement("div");
+document.createElement("a");
+document.createElement("script");
+例子
+var li = document.createElement("li");
+var img = document.createElement("img");
+var a = document.createElement("a");
+
+修改节点
+textContent
+innerText-----------不是W3C规范，但是常用
+
+element.textContent
+节点及其后代节点的文本内容
+如
+<div id="users">
+	<h2>8882人在学习该课程:</h2>
+	<ul>
+		<li class="user">Satoshi</li>
+		<li class="user">春来草青</li>
+		<li class="user last">Kash</li>
+	</ul>
+</div>
+users.textContent;
+"
+8882人在学习该课程
+	Satoshi
+	春来草青
+	Kash
+"
+uesr_last.textContent;
+"Kash"
+
+user_last.textContent = "Tom";-----就是将原来的值改成Tom
+ie9以下不支持textContent
+
+element.innerText
+节点及其后代节点的文本内容
+但是不规范，firefox不支持
+兼容方案如下
+if(!('innerText' in document.body)) {
+	HTMLElement.prototype._defineGetter_("innerText",function(){
+		return this.textContent;
+	});
+	HtMLElement.prototype_defineSetter_("innerText",function(s){
+		return this.textContent = s;
+	});
+}
+
+设置节点内容
+a.innerText = "lifeng";
+
+
+插入节点
+appendChild
+insertBefore
+
+appendChild-------在指定的节点最末尾追加元素
+var achild = element.appendChild(achild);
+如
+<div id="users">
+
+</div>
+var h2 = document.createElement("h2");
+h2.innerText = '8882人在学习该课程:';
+var ul = document.createElement("ul");
+users.appendChild(h2);
+users.appendChild(ul);
+结果
+<div id="users">
+	<h2>8882人在学习该课程:</h2>
+	<ul></ul>
+</div>
+
+insertBefore-------在指定元素的指定的子节点前面插入元素
+var achild = element.inserBefore(achild,referenceChild);
+如
+<div id="users">
+
+</div>
+var h2 = document.createElement("h2");
+h2.innerText = '8882人在学习该课程:';
+var ul = document.createElement("ul");
+users.appendChild(h2);
+users.insertBefore(h2,ul);
+结果
+<div id="users">
+	<h2>8882人在学习该课程:</h2>
+	<ul></ul>
+</div>
+
+
+删除节点
+removeChild
+child = element.removeChild(child)
+如
+var user2 = users.getElementByChlassName('user')[1];
+user2.parentNode.removeChild(user2);
+
+element.innerHTML--------节点的HTML内容
+
+<div id="users">
+	<h2>8882人在学习该课程:</h2>
+	<ul>
+		<li class="user">Satoshi</li>
+		<li class="user">春来草青</li>
+		<li class="user last">Kash</li>
+	</ul>
+</div>
+user.innerHTML;----------上边语句中的innerHTML是：
+<h2>8882人在学习该课程:</h2>
+<ul>
+	<li class="user">Satoshi</li>
+	<li class="user">春来草青</li>
+	<li class="user last">Kash</li>
+</ul>
+
+user.innerHTML = "";-----相当于删除所有子节点元素
+
+var li = document.createElement("li");
+li.chalssName = 'user';
+ul.appendChild(li);
+li.innerHTML = '<img src="4.jpg">\
+		<a href="/user/4">lifeng</a>';
+同时完成了创建节点，插入节点，还设置了属性
+万能的innerHTML
+
+为什么不直接在ul的基础上执行innerHTML
+如
+ul.innerHTML +='<li class="user">
+			<img src="4.jpg">\
+			<a href="/user/4">lifeng</a>
+		</li>';
+直接在ul上设置的时候，相当于重新设置ul的样式，之前的节点的一些触发效果会丢失
+同时使用innerHTML在低版本的浏览器上存在内存泄漏，
+同时会有安全问题
+如
+用户可以在用户名中输入一串代码，如
+//var userName = '</a><a onclick="alert(1);" href="#">lifeng';
+//var userName = '</a><a onclick="document.documentElement.innerHTML=\'我是黑客！'" href="#">lifeng';
+li.innerHTML = '<img src="4.jpg">\
+		<a href="/user/4">' + userName + '</a>';
+
+因此使用innerHTML时建议仅用于新节点
+用户填写的内容要确保没有标签

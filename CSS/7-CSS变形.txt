@@ -1,0 +1,119 @@
+transform:none|<transform-function>+
+transform:none--------------不做变形
+transform:<transform-function>+
+如：
+<body style="transfonm:rotate(180deg)">
+
+rotate()------------旋转
+rotate(<angle>)
+如：
+transform:rotate(45deg);
+transform:rotate(-65deg);
+
+translate()----------移动
+translate(<translation-value><translation-value>?)------------------x y,只设置一个值，则Y轴不偏移
+translateX(<translation-value>)--------------可以只设置x或y
+translateY(<translation-value>)
+如
+transform: translate(50px);------------x正方向偏移50px
+transform: translate(50px 20%);--------------%相对于容器的高度
+transform: translateX(-50px);------------x反方向偏移50px
+transform: translateY(20%);
+
+scale()-------------缩放
+scale(<number>[,<number>]?)----------------x,y，y不写的时候，默认和第一个值一样
+scaleX(<number>)
+scaleY(<number>)
+transform:scale(1.2);---------整体放大1.2倍
+transform:scale(1,1.2);
+transform:scaleX(1.2);
+transform:scaleY(1.2);
+
+skew()-----------------倾斜
+skew(<angle>[,<angle>]?)----------y轴向x轴正方向偏移多少，x向y轴正方向倾斜
+skewX(<angle>)-----------------y轴向x轴偏移多少
+skewY(<angle>)-----------------x向y轴正方向倾斜
+如
+transform:skew(30deg);------y向x倾斜30°
+transform:skew(30deg,30deg);-------y向x轴倾斜30°，x轴向y轴倾斜30°
+transform:skewX(30deg);------y向x倾斜30°
+transform:skewY(30deg);------x轴向y轴倾斜30°
+
+transform:<transform-function>+
+如：
+transform:translate(50%) rotate(45deg);---------------先移动，在旋转
+transform:rotate(45deg) translate(50%);---------------先旋转，后移动
+
+
+transform-origin-------绕某个点旋转
+[left|center|right|top|bottom|<percentage>|<length>]|-------------x
+[left|center|right|<percentage>|<length>]-------------------------y
+[top|center|bottom|<percentage>|<length>]<length>?|----------------z
+[center|[left|right]]&&[center|[[top|bottom]]]<length>?------------关键词
+transform-origin: 50% 50%;-------中心旋转
+transform-origin: 0 0;-------以(0,0)旋转
+transform-origin: 20%;-------y坐标默认为50%
+transform-origin: right 50px 20px;-------3D坐标，偏移到最右边，向y轴移动50px,z正偏移20px
+transform-origin: top right 20px;-------在容器顶部，水平坐标在最右边，向Z正移动20px
+
+向y轴旋转
+perspective透视
+perspective:none(无)|<length>
+perspective:none;
+perspective:2000px;-------------到人眼的距离，距离越小透视越明显
+perspective:500px;
+
+perspective-origin------设置透视角度
+[left|center|right|top|bottom|<percentage>|<length>]|
+[left|center|right|<percentage>|<length>]-----------------------x
+[top|center|bottom|<percentage>|<length>]|-----------------------------y
+[center|[left|right]]&&[center|[top|bottom]]--------------------xy xy
+perspective-origin:50% 50%;------默认
+perspective-origin:left bottom;------左下角
+perspective-origin:50% -800px;------正中间上边的位置偏移了800px
+perspective-origin:right;------------right是x的值,右边的中间位置透视
+
+
+translate3d()-----3D效果
+translate3d(<translation-value>,<translation-value>,<length>)--------------x,y,z
+translateX(<translation-value>)------x轴上的位移
+translateY(<translation-value>)----------y轴上的位移
+translateZ(<length>)--------------------z上的位移
+transform:translate3d(10px,20px,50px);
+transform:translateX(10px);
+transform:translateY(20px);
+transform:translateZ(-100px);
+往Z轴偏移时会有3D效果
+
+scale3d()------缩放的3d效果
+scale3d(<nuber>,<nuber>,<nuber>)
+scaleX(<number>)
+scaleY(<number>)
+scaleZ(<number>)------不会影响盒子大小，多种方法在一起的时候会有影响
+如
+transform:scale3d(1.2,1.2,1)
+transform:scale3d(1.2,1,1.2)
+transform:scale3d(1,1.2,1.2)
+transform:scale3d(1,1,5)
+transform:scaleZ(5) translateZ(100px);-------------先放大z轴，在移动，相当于移动500px
+
+rotate3d()-------3d旋转效果
+rotate(<number>,<number>,<number>,<angle>)-----------x,y,z,角度
+rotateX(<angle>)
+rotateY(<angle>)
+rotateZ(<angle>)
+
+transform:rotate3d(1,0,0,45deg)--------坐标（1,0,0）旋转45°,按x轴旋转
+transform:rotate3d(0,y,0,45deg)----------Y轴旋转
+transform:rotate3d(0,0,1,45deg)----------Z轴旋转
+transform:rotate3d(1,1,1,45deg)----------(1,1,1)旋转45°
+
+在已经旋转过的容器再次做变形
+transform-style:flat(默认扁平)|preserve-3d（保留3D）
+
+旋转后背面不可见‘
+backface-visibility:visible|hidden----可见|不可见
+
+变形的兼容性问题说明：
+本节所讲语法和案例，均以W3规范为准，所有案例在webkit内核的高版本浏览器（如chrome）中测试通过。
+本节所讲语法和案例在低版本浏览器（如IE6、IE7、IE8等）中不支持。

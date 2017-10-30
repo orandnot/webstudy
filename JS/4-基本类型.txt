@@ -1,0 +1,117 @@
+Number
+整数
+如
+15(十进制)	var num = 10;
+0377(八进制)	var num = 070;//56
+0xff(十六进制)	var num = 0xA;//10
+
+浮点数
+如
+1.2		var num = 3.1416;
+1.4E2		var num = 3.12e2;//312
+		var num = 3.12e-1;//0.312
+
+特殊值
+NaN(Not a Number)
+Infinity（无穷大）	var num = 1/0;//Infinity
+
+String
+被单引号或双引号引起来的都是String类型的，不管它原来是什么类型的
+如
+var name ="hello";
+var month ='july';
+var num ='3.14';
+
+Boolean(布尔值，必须是小写的，大写就会变成标识符)
+true
+false
+通常用在条件语句中
+如
+var sex = true;
+if(sex){
+	document.write('男');
+}
+else{
+	document.write('女');
+}
+
+object（一组无序的名值对的集合）
+如
+var cat ={
+	name : 'kitty',
+	age : 2,
+	mew : function(){         
+		console.log('喵喵喵');
+	}
+}
+属性
+name : 'kitty',
+age : 2,
+方法
+mew : function(){         
+		console.log('喵喵喵');
+	}
+
+也可以通过new来定义
+var dog = new Object();
+
+Null
+类型说明
+-值：null
+出现场景
+-表示对象不存在
+var car = null;-----设置初始值
+
+Undefined
+值
+-undefined
+出现场景
+-已声明未赋值的变量
+-获取对象不存在的属性
+
+未赋值的变量
+var a;
+console.log(a);//undefined
+
+属性不存在
+var obj = {a:1,b:2};
+console.log(obj.c);//undefined
+
+类型识别
+typeof
+如
+var num;
+typeof num;//undefined
+
+var num = 1;
+typeof num;//number
+
+var num = '1';
+typeof num;//string
+
+var flag = true;
+typeof flag;//boolean
+
+var cat = null;
+typeof cat;//object
+
+var cat = {name : 'kitty'};
+typeof cat;//object
+
+原始类型和引用类型
+原始类型
+Number String Boolean Undefined Null
+引用类型
+Object
+例子
+var num1 = 123;
+var num2 = num1;
+num2 456;
+console.log(num1);//123
+不会改变之前的值，num2就是一个新的对象，num1还是原来的
+
+var obj1 = {a:1};-------->存的不是一个真实的对象，是一个指针
+var obj2 = obj1;
+obj2.a = 3;
+console.log(obj1.a);//3
+引用类型会改变原来的值

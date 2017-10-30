@@ -1,0 +1,168 @@
+改变文字大小
+font-size
+font-size:<length>|<percentage>|<absolute-size>|<relative-size>
+|表示只能就选择一个：长度、百分比、绝对值、相对值
+实际开发中绝对值和相对值不怎么用
+文字大小：font-size:12px;
+	文字大小：font-size:16px;
+	文字大小：font-size:2em;
+	文字大小：font-size:200%;
+	em和%有参照物，参照物是父元素
+
+字体
+font-family
+font-family:[<family-name>|<generic-family>]#--------------#表示出现一次或多次，中间用,隔开
+<generic-family>=serif|sans-serif|cursive|fantasy|monospace----------系统或浏览器默认字体后三种不常用
+字体系列：font-family:arial;
+	字体系列：font-family:arial,Verdana,sans-serif;---------所有英文字体采用arial，中文字体采用sans-serif
+	字体系列：font-family:Verdana,"microsoft yahei";---------所有英文字体采用Verdana，中文字体采用microsoft yahei
+	字体系列：font-family:"宋体",serif;----------所有字体都是宋体
+
+加粗
+font-weight:narmal|bold|bolder|lighter-------后两种不常用
+	|100|200|300|400|500|600|700|800|900-----------粗细分成九种，一般支持400和700
+如
+字体粗细：font-weight:normal;------normal可以省略不写
+字体粗细：font-weight:blod;-----------字体加粗
+
+斜体
+font-style:normal|italic|oblique---------italic是字体本身就有斜体，oblique是强制倾斜，一般用italic
+字体粗细：font-style:normal;------normal可以省略不写
+字体粗细：font-style:italic;-----------字体为斜体
+
+行距
+line-height：normal|<number>|<length>|<percentage>
+normal是由浏览器设置的值，一般在1.1~1.2，一般为1.14
+行高：line-height:40px;
+行高：line-height:3em;-------em是指当前字体的大小
+行高：line-height:300%;
+行高：line-height:3;
+
+%和<number>的区别
+number是直接继承
+%是先计算，后继成
+
+font可以把属性连在一起
+font：[[<font-style>||<font-variant>||<font-weight>||<font-strech>]?<font-size>[/<line-height>]?<font-family>]|caption|icon|menu|message-box|small-caption|status-bar
+一般只会用到font-style、font-weight、font-size、line-height、font-family
+font:[<font-style>||<font-weight>]?<font-size>[/<line-height>]?<font-family>
+如：
+font:30px/2 "Consolas",monospace;
+font:italic bold 20px/2 arial,serif;
+font:20px arial,serif;
+
+font:100px;---------这样写是不对的
+font-size和font-family是必填项
+
+改变颜色
+color
+color:red;
+color；#ff0000;
+color:rgb(255,0,0);
+color:rgba(255,0,0,1);----有半透明效果，1是不透明，0是全透明
+color：transparent;
+
+文字对齐
+text-align:left|right|center|justify（两端对齐）
+
+垂直对齐
+vertical-align:baseline（基线）|sub（下标）|super（上标）|top（当前行最高点）|text-top（文字最高点）|middle（垂直居中）|bottom|text-bottom|<percentage>（参照行高）|<length>（以baseline为起点）
+
+
+段落首行缩进
+text-indent：<length>|<percentage>
+text-indent:2em;------em以文字大小为参照物
+text-indent:10px;-------缩进固定10px，一般不太用
+text-indent:20%;---------参照物为容器的宽度
+如果text-indent设置一个负的极大值，则里面的文字将跑出容器，达到隐藏文字的目的-----------------用在seo里边
+设置负为向左缩进
+
+是否自动换行
+white-space:normal(换行或空格会被合并成一个空格)|nowrap|pre|pre-wrap|pre-line
+		
+		New Lines	Spaces and Tabs		Text Wrappin
+------------------------------------------------------------------------
+normal		Collapse(合并)	Collapse		Wrap(换行)
+nowrap		Collapse	Collapse		No wrap
+pre		Preserve(保留)	Preserve		No wrap(不换行)
+pre-wrap	Preserve	Preserve		Wrap
+pre-line	Preserve	Collapse		Wrap
+
+如
+<p>
+.m-demo .p6{
+	test-indent: 2em;
+}
+</p>
+
+.p6{
+	white-space:pre-wrap;
+}
+
+单词换行
+word-wrap:normal|break-word
+
+任意两个字母之间可以进行换行
+word-break:normal|keep-all|break-all
+
+文字阴影
+text-shadow:none|[<length>{2,3}&&<color>?]#
+text-shadow:1px 2px #f00;实体阴影，分别向X轴和Y轴偏移1px、2px
+text-shadow:1px 2px 3px #f00;-----3px是阴影的模糊半径
+text-shadow:1px 2px;-----不写color，阴影的颜色就是文字的颜色
+
+文字标注
+text-decoration:none|[underline||overline||line-through]--------可以写多个，如下划线，上划线、中间有线
+
+文字省略
+text-overflow:clip(默认值)|ellipsis
+如（需要组合设置，否则不起作用）
+text-overflow:ellipsis;
+overflow:hidden;--------溢出时截掉
+white-space:nowrap;--------强制一行，不换行
+
+文本作为按钮实现时，鼠标变成小手
+cursor:[<uri,>]*[auto|default|none|help|pointer|zoom-in|zoom-out|move]
+uri:图片
+auto:自动处理
+default：普通光标
+none：鼠标消失
+help:带问号
+pointer：小手
+zoom-in：缩小
+zoom-out：放大
+move：向上向下向左向右箭头
+如：
+cursor:poiter;
+cursor:url(xx.cur), pointer;带上系统自带的手势，以防自定义的不起作用
+
+强制继承
+子元素如何恢复到父元素的设置
+如
+<div class="parent">
+	Hello<span class="child">World</span>
+</div>
+原CSS
+<style type="text/css">
+	.parent{color:?;}
+	.child{color:red;}
+</style>
+需改写的CSS
+<style type="text/css">
+	.child{color:inherit;}
+</style>
+
+强制集成的文本
+font-size:inherit;
+font-family:inherit;
+font-weight:inherit;
+font-style:inherit;
+line-height:inherit;
+color:inherit;
+text-decoration:inherit;
+text-align:inherit;
+text-indent:inherit;
+white-space:inherit;
+word-wrap:inherit;
+word-break:inherit;
+text-shadow:inherit;

@@ -1,0 +1,245 @@
+类型
+原始（值）类型
+Undefined		undefined
+Null			null	
+Boolean			true
+String			"hello"
+Number			123	
+			var o = null;
+			var b = true;
+			var s = "hello";
+			var n = 123;
+对象（引用）类型
+Object			var obj = {};
+			var arr = [];
+			var date = new Date();
+
+对象类型
+	原生对象			
+构造函数	对象		宿主对象	浏览器扩展对象
+----------------------------------------------------------------------------
+Boolean		Math		window		ActiveXObject
+String		JSON		document	XML
+Number		全局对象	navigator	Debug
+Object		arguments	...		Script
+Function					VBArray
+Array						...
+Date
+RegExp
+Error
+----------------------------------------------------------------------------
+浏览器扩展对象正在慢慢消失
+宿主对象，是指浏览器运行的环境，比较重要
+原生对象，是规范对应的对象，包括构造函数和对象
+
+原始类型和对象类型区别
+开发者不需要了解内存实际上运行的机制
+var a;
+var b = null;
+var c = true;
+var d = 123;
+var e = "hello";
+var f = {a:1};
+
+	栈内存			堆内存
+
+f	
+	(Object类型)	
+------------------------
+e	"hello"
+	(String类型)
+------------------------
+d	123
+	(Number类型)
+------------------------	{a:1}
+c	true
+	(Boolean类型)
+------------------------
+b	null
+	(Null类型)
+------------------------
+a	undefined
+	(Undefined类型)
+------------------------
+
+原始类型都在栈内存中
+对象类型存储在堆内存中
+
+复制
+var num1 = 123;
+var num2 = num1;
+num1 = 1;//num2===123
+原始类型的值不会发生变化
+
+var obj1 = {a:1};
+var obj2 = obj1;
+obj1.a = 2;//obj2.a===2
+对象类型复制时，是复制的的地址值，如何复制所有值
+
+隐式类型转换
+数字和字符串做加法操作时，实际上为字符串连接
+数字和字符串做其他操作时，字符串会被隐式转换成数字
+
+下边的几种情况下，会进行隐式转换
+数字运算符
+.
+if语句
+==
+
+隐式类型转换结果
+-----------------------------------------------------------------------------------------------------
+		原值		Boolean		Number		String		Object
+Undefined	Undefined	false		NaN		"undefined"
+Null		null		false		0		"null"
+Boolean		true				1		"true"		new Boolean(true)
+		false				0		"false"		new Boolean(false)
+String		""		false		0				new String("")
+		"123"		true		123				new String("123")
+		"2a"		true		NaN				new String("2a")
+Number		0		flase				"0"		new Number(0)
+		1		true				"1"		new Number(1)
+		Infinity	true				"Infinity"	new Number(Infinity)
+		NaN		false				"NaN"		new Number(NaN)
+Object		{}		true		NaN		"[object Object]"
+-----------------------------------------------------------------------------------------------------
+
+显示类型转换方法
+Number(),String(),Boolean()   
+parseInt(),parseFloat()
+!,!!   非运算符取得布尔值，!!是指被运算对象的布尔值
+
+
+类型识别
+/*
+* 输入格式：
+* '2015-08-05'
+* 1438744815232
+* {y:2015,m:8,d:5}
+* [2015,8,5]
+* 返回格式：Date
+*/
+function toDate(param){
+  if (typeof(param) == 'string' || 
+      typeof(param) == 'number' ){
+    return new Date(param);
+  } 
+  if (param instanceof Array){
+    var date = new Date(0);
+    date.setYear(param[0]);
+    date.setMonth(param[1]-1);
+    date.setDate(param[2]);
+    return date;
+  }
+  if (typeof(param) == 'object') {
+    var date = new Date(0);
+    date.setYear(param.y);
+    date.setMonth(param.m-1);
+    date.setDate(param.d);
+    return date;
+  }
+  return -1;//表示参数出错
+}
+为什么数组判断要在对象前边
+
+typeof
+instanceof
+Object.prototype.toString.call
+constructor
+
+typeof实际上是一个操作符
+可以识别标准类型，除了null以外
+不能识别具体的对象类型（Function除外）
+如
+typeof 1;	//"number"
+typeof "a";	//"string"
+typeof true;	//"boolean"
+typeof undefined;	//"undefined"
+typeof null;	//"object"
+typeof {name: "aass"};	//"object"
+typeof function(){};	//"function"
+typeof [];	//"object"
+typeof new Date;	//"object"
+typeod /\d/;	//"object"
+fuction Person(){};
+typeof new Person;	//"object"
+
+
+instanceof
+可以判别内置对象类型
+不能判断原始类型
+判别自定义对象
+如
+[] instanceof Array;	//true
+/\d/ instanceof RegExp;	//true
+1 instanceof Number;	//false
+"aa" instanceof	String;	//false
+//能够判别自定义对象类型及父子类型
+function Point(x, y) {
+	this.x = x;
+	this.y = y;
+}
+function Circle(x, y, r) {
+	Point.call(this, x, y);
+	this.radius = r;
+}
+Circle.prototype = new Point();
+Circle.prototype.constructor = Circle;
+var c = new Circle(1, 1, 2);
+c instanceof Circle	//true
+c instanceof Point	//true
+
+Object.prototype.toString.call
+可以识别标准类型以及内置（build-in）对象类型
+不能识别自定义对象类型
+如
+Object.prototype.toString.call(123)	//"[object Number]"
+Object.prototype.toString.call("")	//"[object String]"
+
+function type(obj) {
+	return Object.prototype.toString.call(obj).slice(8, -1);
+}
+type(1)		//"Number"
+type("abc")	//"String"
+type(true)	//"Boolean"
+type(undefined)	//"Undefined"
+type(null)	//"Null"
+type({})	//"Object"
+type([])	//"Array"
+type(new Date)	//"Date"
+type(/\d/)	//"RegExp"
+type(function() {})	//"Function"
+function Point(x, y) {
+	this.x = x;
+	this.y = y;
+}
+type(new Point(1,2));	//"Object"
+
+constructor
+判别标准类型（Undefined/Null除外）
+判别内置对象类型
+判别自定义函数类型
+
+如
+//判断原始类型
+"jerry".constructor === String;	//true
+(1).construtor === Number;	//true
+true.constructor === Boolean;	//true
+({}).constructor === Object;	//true
+//判断内置对象类型
+new Date.constructor ===Date;	//true
+[].constructor === Array;	//true
+//判断自定义对象
+function Person(name){
+	this.name = name;
+}
+new Person("jerry").constructor === Person;	//true
+//获取对象构造函数名称
+function getConstructorName(obj) {
+	return (obj===undefined||obj===null)?obj:(obj.constructor&&obj.constructor.toString().match(/function\s*([^(]*)/)[1]);
+}
+getConstructorName([]) === "Array";	//true
+
+obj				//保证传入的值为null和undefined则直接返回本身
+obj.constructor			//保证后边能执行
+obj.constructor.toString()	//"function Number() {[native code]}"
+match(/function\s*([^(]*)/)[1]);	//"Number"

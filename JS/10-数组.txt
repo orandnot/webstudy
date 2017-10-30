@@ -1,0 +1,337 @@
+数组
+如
+---------------
+学号	成绩
+1	80
+2	70
+3	60
+...	...
+--------------
+
+创建数组
+var array = new Array();
+var array = [];相比较来说，[]更简单，在开发过程中用的较多
+
+如
+var array = [1,6,3];
+var array =[
+	163,
+	"netease",
+	{color: "red"},
+	[],
+	true
+];
+数组中元素的类型可以不一样，数组中还可以包含数组
+
+var students = [
+	{id:1,score:80},
+	{id:2,score:70},
+	{id:3,score:60}
+];
+
+arr.length
+表示数组长度
+如
+var students = [
+	{id:1,score:80},
+	{id:2,score:70},
+	{id:3,score:60}
+];
+students.length;	//3
+
+students = [];
+students.length;	//0
+
+
+获取数组元素
+arr[index]
+如
+var students = [
+	{id:1,score:80},
+	{id:2,score:70},
+	{id:3,score:60}
+];
+students[0];		//{id:1,score:80}
+students[0].score;	//80
+
+修改数组元素
+var students = [
+	{id:1,score:80},
+	{id:2,score:70},
+	{id:3,score:60}
+];
+students[0];		//{id:1,score:80}
+students[1].score = 60;	//60
+
+获取数组元素的位置，或判断元素存不存在
+arr.indexOf(searchElement[,fromIndex = 0])------------fromIndex = 0一般都不写的，默认为0
+如
+var telephones = [110,120,140];
+telephones.indexOf(120);	//1
+telephones.indexOf(119);	//-1,可以通过返回值是否为-1，判断是否存在
+
+arr.forEach(callback[,thisArg])
+遍历数组中所有的元素
+传入一个回调函数，每遍历一个元素，都会执行一遍回调函数
+第二个参数用来替代this
+如
+var students = [
+	{id:1,score:80},
+	{id:2,score:70},
+	{id:3,score:60}
+];
+
+var editScore = function(item,index,array){	//遍历的每个元素，开始索引，数组
+	item.score +=5;
+};
+students.forEach(editScore);
+forEach对回调函数的参数是有要求的
+
+================================================================================
+arr.reverse()
+数组的执行顺序倒过来
+如
+var students = [
+	{id:1,score:80},
+	{id:2,score:70},
+	{id:3,score:60}
+];
+students.reverse();
+students[0].score;	//60
+
+指定顺序排序
+arr.sort([compareFunction])
+如
+var students = [
+	{id:1,score:80},
+	{id:2,score:90},
+	{id:3,score:60}
+];
+var byScore = function(a,b){
+	return b.score-a.score;
+};
+students.sort(byScore);	
+结果
+[	
+	{id:2,score:90},
+	{id:1,score:80},
+	{id:3,score:60}
+]
+return b.score-a.score;中的
+值大于0，a放在b后边
+值小于0，a放在b前边
+值等于0，顺序保持不变
+return a.score-b.score;和return b.score-a.score;排序相反
+
+compareFunction也可以不传，这样就是按照万国码(unicode)的顺序排列
+var stusentNames = ["wq","x1","gp"];
+studentNames.sort();
+studentNames;	//["gp","wq","xl"]	首先比较第一位，再比较第二位
+
+arr.push (element1,...,elementN)
+向数组中往后添加元素
+如
+var students = [
+	{id:1,score:80},
+	{id:2,score:90},
+	{id:3,score:60}
+];
+students.push({id:4,score:90},{id:5,score:90});
+
+===》
+[
+	{id:1,score:80},
+	{id:2,score:90},
+	{id:3,score:60},
+	{id:4,score:90},
+	{id:5,score:90}
+]
+
+arr.unshift(element1,...,elementN)
+向数组中往前添加元素
+var students = [
+	{id:1,score:80},
+	{id:2,score:90},
+	{id:3,score:60}
+];
+students.unshift({id:4,score:90});
+
+===》
+[
+	{id:4,score:90},
+	{id:1,score:80},
+	{id:2,score:90},
+	{id:3,score:60}
+]
+
+arrshift()
+获取数组中的第一个元素，且原来数组中的第一个元素被删除
+如
+var students = [
+	{id:1,score:80},
+	{id:2,score:90},
+	{id:3,score:60}
+];
+students.shift();	//{id:1,score:80}
+===>>
+[
+	{id:2,score:90},
+	{id:3,score:60}
+]
+
+arr.pop()
+获取数组中的最后一个元素，且原来数组中的最后一个元素被删除
+如
+var students = [
+	{id:1,score:80},
+	{id:2,score:90},
+	{id:3,score:60}
+];
+students.pop();	//{id:3,score:60}
+===>>
+[
+	{id:1,score:80},
+	{id:2,score:90}
+]
+
+arr.splice(index, howMany[,ele1[,...[,eleN]]])
+从任意位置删除，删除多少，插入的元素
+如
+var students = [
+	{id:1,score:80},
+	{id:2,score:90},
+	{id:3,score:60}
+];
+students.splice(1,1,{id:4,score:90});----->>替换
+===>>
+[
+	{id:1,score:80},
+	{id:4,score:90},
+	{id:3,score:60}
+]
+
+students.splice(1,1)------>>删除
+===>>
+[
+	{id:1,score:80},
+	{id:3,score:60}
+]
+
+students.splice(1,0,{id:4,score:90})--->>添加，插入是往前插入
+===>>
+[
+	{id:1,score:80},
+	{id:4,score:90},
+	{id:2,score:90},
+	{id:3,score:60}
+]
+
+reverse、sort
+push、unshift
+shift、pop
+splice
+这些方法都改变了原来的数组
+
+===================================================================
+arr.slice(begin[,end])
+复制或拷贝数组中的元素，前边的值是包含，结尾不包含
+如
+var students = [
+	{id:1,score:80},
+	{id:2,score:90},
+	{id:3,score:60}
+];
+var newStudents = students.slice(0,2);
+//复制一份出来，不改变原来的数组
+[
+	{id:1,score:80},
+	{id:2,score:90}
+]
+
+var newStudents = students.slice(0);
+//全拷贝
+[
+	{id:1,score:80},
+	{id:2,score:90},
+	{id:3,score:60}
+]
+
+
+arr.concat(value1,...,valueN)
+将多个数组的值连起来,value值不一定是数组
+如
+var students1 = [
+	{id:1,score:80},
+	{id:2,score:70},
+	{id:3,score:50}
+]
+var students2 = [
+	{id:4,score:80},
+	{id:5,score:70}
+]
+var students3 = [
+	{id:6,score:80},
+	{id:7,score:70}
+]
+var newStudents = students1.concat(students2,students3);
+结果
+[
+	{id:1,score:80},
+	{id:2,score:70},
+	{id:3,score:50},
+	{id:4,score:80},
+	{id:5,score:70},
+	{id:6,score:80},
+	{id:7,score:70}
+]
+
+以分号分割字符串
+"wq@163.com;gp@163.com;xl@163.com".split(";");
+//["wq@163.com","gp@163.com","xl@163.com"]
+
+以分号连起来
+arr.join([separator])
+如
+var emails = ["wq@163.com","gp@163.com","xl@163.com"];
+emails.join(";");
+//"wq@163.com;gp@163.com;xl@163.com"
+什么都不填，就是以逗号隔开
+填写空字符串，则没有任何分隔符
+
+改分数
+var scores = [60,70,80,90]
+var newScores = [];
+var addScore = function(item,index,array){
+	newScores.push(item+5);
+};
+scores.forEach(addScore);
+newScores;	//[65,75,85,95]
+
+可以通过其他方法实现，即arr.map(callback[,thisArg])
+如
+var scores = [60,70,80,90]
+var addScore = function(item,index,array){
+	return item+5;
+};
+scores.map(addScore);	//[65,75,85,95]
+
+1+2+3+4
+arr.reduce(callback[,initialValue])
+如
+var students = [
+	{id:1,score:80},
+	{id:2,score:70},
+	{id:3,score:50}
+]
+var sum = function(previousResult,item,index,array){
+	return previousResult+item.score;
+};
+students.reduce(sum,0);
+//200
+previousResult,item,index,arry
+上一次执行的结果，当前元素，当前元素的索引值，数组本身
+slice		 
+concat		 
+join		 ------原数组没有被修改
+map			
+reduce

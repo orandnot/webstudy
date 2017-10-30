@@ -1,0 +1,139 @@
+盒子的属性
+盒子边框
+盒子填充
+盒子内容
+盒子外边距
+每个属性都有：上、下、左、右四部分
+
+border
+padding
+content=width*height
+margin
+
+border、padding、margin都有top、right、bottom、left四部分
+
+宽度
+width:<length>|<percentage>|auto|inherit----后两个用得少
+如
+width:200px;
+width:50%;-----------参照物是父元素
+max-width、min-width
+
+高度
+height:<length>|<percentage>|auto|inherit----后两个用得少
+height:100px;
+height:50%;
+默认高度为内容高度
+当父元素高度和内容元素高度一样时，使用百分比设置高度是无效的
+span元素不能设置高度和宽度
+max-height、min-height
+
+填充
+padding:[<length>|<percentage>]{1，4}|inherit
+padding:20px;
+padding:40px 30px 20px 10px;------上、右、下、左，顺时针
+相当于
+padding-top:40px;
+padding-right:30px;
+padding-bottom:20px;
+padding-left:10px;
+
+padding的值缩写
+padding: 20px;==padding: 20px 20px 20px 20px;
+padding: 20px 10px; == padding: 20px 10px 20px 10px;
+paddnig: 20px 10px 30px;==padding: 20px 10px 30px 10px;
+对面相等，后者省略；四面相等，只设一个
+其他的四个方向的也都是一致的
+
+外边距
+margin:[<length>|<percentage>|auto]{1，4}|inherit-----auto是默认值,浏览器自身选择的
+margin: 20px;
+margin: 30px 20px 10px 0;
+缩写值参照padding
+
+合并：
+margin-bottom:40px;
+margin-top:20px;
+毗邻元素外边距会合并，取较大的值
+margin-bottom:40px;
+margin-bottom:20px;
+父元素与第一个/最后一个子元素外边距可合并
+父元素和最后一个子元素的margin-bottom可以合并，与第一个元素的margin-top可以合并，取较大的值
+合并参考的地址
+https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_Box_Model/Mastering_margin_collapsing
+当有负边距存在时，合并后的外边距将是最大正边距加上最小负边距（即负边距中绝对值最大的一个）。
+如两个兄弟元素，上面的元素的下边距为 20px ，下面的元素的上边距为 -20px ，那么发生外边距合并后，这两个元素的实际距离将变成 0px 。
+浮动 及 绝对定位 元素外边距不会合并。
+
+水平居中
+margin: 0 auto;
+
+边框
+border: [<border-width>||<border-style>||<border-color>]|inherit
+border-width:[<length>|thin|medium|thick]{1,4}|inherit-------------{1,4}有上右下左四个方向
+border-style:[solid|dashed|dotted|...]{1,4}|inherit-----------实线、虚线、点状
+border-color:[<color>|transparent]{1,4}|inherit--------------默认为字体颜色
+如
+border:1px dashed blue;
+border-width：0 1px 2px 3px;
+border-style:solid;
+border-color:#0ff;
+
+
+圆角
+border-radius:[<length>|<percentage>]{1,4}[/<length>|<percentage>]{1,4}?-----------左上角、右上角、右下角、左下角，前面是靠右边，后边的是左边的
+border-radius:10px;---------四个角都是正圆的
+border-radius：0px 5px 10px 15px/20px 15px 10px 5px;--------有半径为0的是不能画成圆角的，要写多个的时候，一般都会写全
+border-radius: 50%;-----------正圆，参照物是四条边
+border-top-left--radius: 10px;-----------单独设置某个角
+
+
+当盒子中的内容超出时，可设置overflow
+overflow: visible|hidden|scroll|auto--------------超出不隐藏(默认值)、超出隐藏、显示滚动条、自适应是否出现滚动条
+引申：overflow-x,overflow-y
+
+content-box
+border-box
+box-sizing:content-box|border-box|inherit---------默认情况下设置的是内容区
+如
+width: 150px;--------------content的width
+height: 150px;-------------content的height
+padding: 50px;
+border: 5px solid blue;
+box-sizing: content-box;----------设置的是content的宽和高
+
+width: 150px;
+height: 150px;
+padding: 50px;
+border: 5px solid blue;
+box-sizing: border-box;--------------设置的是border的宽和高
+box-sizing在响应式用的比较多，用来设置width和height指定的区域
+
+盒阴影
+box-shadow:none|<shadow>[,<shadow>]*<shadow>:inset?&&<length>{2,4}&&<color>?
+如：
+外阴影
+box-shadow:4px 6px 3px 3px red;-------水平偏移、垂直偏移、模糊半径、阴影大小
+box-shadow:3px 3px 5px 2px;-----颜色不设置时，阴影颜色是字体颜色
+
+内阴影
+box-shadow:inset 0px 0px 5px red;
+
+多阴影
+box-shadow: 3px 3px 5px 2px, inset 0px 0px 5px red;
+阴影不占空间
+
+描边
+没有设置边框是不能区分边界的，这是需要outline来描绘轮廓
+outline: [<outline-width>||<outline-style>||<outline-color>]|inherit
+outline-width:<length>|thin|medium|thick|inherit
+outline-style:solid|dashed|dotted|...|inherit-----------实线、虚线、点状
+outline-color:<color>invert|inherit--------------默认为字体颜色
+不占空间，在border外
+有border，描边存在的意义不大
+
+关于CSS属性的浏览器兼容性，可以通过 caniuse 查询。
+border-radius ie8及以下不支持
+box-sizing ie7及以下不支持
+box-shadow ie8及以下不支持
+outline ie7及以下不支持

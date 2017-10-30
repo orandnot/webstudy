@@ -1,0 +1,74 @@
+对象：拥有一些属性和方法的个体
+人：男、女、能力
+车：颜色、奔跑
+
+创建对象
+var car = new Object();
+var car = {}; ----------------比较常见的创建方法
+
+属性和方法
+如
+var car = {
+	color : "red",
+	run : function(){alert("run")}
+};
+属性可以是字符串，也可以是函数
+不同属性之间通过逗号分隔
+
+通过.可以获取到属性值
+如
+car.color;	//"red"
+car.run();	//alert("run")
+car["color"];	//"red"
+car["run"]();	//alert("run")
+访问对象的属性有两种方式，通过.和[]
+
+增加新属性
+car.type = "suv";
+car.stop = function(){alert("stop");}
+
+修改属性
+car.color = "white";
+car.run = function(){alert("run2")};
+
+删除属性
+delete car.color;
+car.color	//undefined
+
+
+obj.constructor
+获取某个对象的构造函数
+如
+var car = {
+	color : "red",
+	run : function(){alert("run")}
+};
+car.constructor;	//Object
+
+var num = new Number(123);
+num.construtor;			//Number
+
+
+obj.toString()
+将对象转成字符串
+如
+var num = new Number(123);
+num.toString();			//"123"
+
+
+obj.valueOf()
+获取对象的原始值
+如
+var num = new Number(123);
+num.valueOf();			//123
+
+obj.hasOwnproperty()
+对象自己拥有的属性，返回true，false
+如
+var car = {
+	color : "red",
+	run : function(){alert("run")}
+};
+car.hasOwnproperty("color")	//true
+car.hasOwnproperty("logo")	//false
+验证属性是否是被继承的

@@ -1,0 +1,56 @@
+开发工具
+文本编辑器:轻量级、功能简单
+Subline Text跨平台，启动快
+Notepad++
+EditPlus
+...
+IDE(集成开发环境)：功能强大
+WebStorm
+IntelliJ IDEA
+Eclipse
+...
+
+Subline Text
+	跨平台，启动快
+	多行选择
+	各种使用插件
+	Snippets（代码片段）
+	支持VIM兼容模式
+
+常用快捷键
+	查找（CTRL+P）
+		：定位具体行(ctrl+g)
+		@ 定位符号(ctrl+r)
+		# 定位关键字(ctrl+;)
+	命令面板（ctrl+shift+p）
+	多行选择（ctrl+d,ctrl+shift+l）
+
+常用插件
+	Package Control
+	Emmet
+	DocBlockr
+	SideBarEnhancements
+	Testminal
+	...
+
+
+设置文件语法为html
+1.Ctrl + N，新建一个文档；
+2.Ctrl + Shift + P，打开命令模式，再输入 sshtml 进行模糊匹配，将语法切换到html模式；
+3.输入  !，再按下 Tab键或者 Ctrl + E ，就能快速打开HTML5的整体结构。
+
+HTML文档需要包含一些固定的标签，比如<html>、<head>、<body>等，现在你只需要1秒钟就可以输入这些标签。
+比如输入“!”或“html:5”，然后按Tab键： 
+html:5 或!：用于HTML5文档类型
+html:xt：用于XHTML过渡文档类型
+html:4s：用于HTML4严格文档类型
+
+
+Snippets代码片段
+创建:tools>Developer>New Snippet
+使用:代码片段的关键字，再点击TAB
+
+调试工具
+浏览器自带的调试工具
+
+ie8以上的工具都有调试工具，IE6可以安装IETest查看显示效果
